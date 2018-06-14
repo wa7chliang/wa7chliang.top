@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+  <title>wa7chliang</title>
+</head>
+<body>
+  <div>网站建设中</div>
+  <div id="msg"></div>
+  <label>用户名</label>
+  <input placeholder="用户名" type="text" name="name" id="username">
+  <label>密码</label>
+  <input placeholder="密码" type="password" name="password" id="password">
+  <label>重复密码</label>
+  <input placeholder="重复密码" type="password" name="repassword" id="repassword">
+  <label>验证码：</label>
+  <input placeholder="验证码" type="text" name="code" id="code">
+  <img id="codeImg" src = '/api/captcha' alt="验证码" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
+  <input type="submit" id="submit" value="注册">
+
+  <script>
+    // $('#submit').click(function () {
+    //   $.post('/api/users/register', {
+    //     username: $('#username').val(),
+    //     password: $('#password').val(),
+    //     repassword: $('#repassword').val(),
+    //     code: $('#code').val()      
+    //     },function (data) {
+    //       if(data.state == 0) {
+    //         $('#msg').html(data.msg)
+    //       } else if(data.state == 1) {
+    //         console.log(1)
+    //       }
+    //     })
+    // })
+
+    $('#submit').click(function () {
+      $.post('/api/users/signin', {
+        username: $('#username').val(),
+        password: $('#password').val(),
+        code: $('#code').val()
+        },function (data) {
+          if(data.state == 0) {
+            $('#msg').html(data.msg)
+          } else if(data.state == 1) {
+            console.log(1)
+          }
+        })
+    })
+  </script>
+</body>
+</html>

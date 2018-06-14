@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+dist/
+myweb/node_modules/
+Myweb/config.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
