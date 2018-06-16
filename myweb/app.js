@@ -36,7 +36,8 @@ app.use('/api/captcha', captcha)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  res.sendfile('index.html')
+  // next(createError(404));
 });
 
 // error handler

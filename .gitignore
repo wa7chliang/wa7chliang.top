@@ -2,7 +2,9 @@
 node_modules/
 dist/
 myweb/node_modules/
-Myweb/config.js
+myweb-fe/node_modules/
+myweb-fe/dist
+myweb/config.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
