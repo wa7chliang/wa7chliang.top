@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
-    <admin-header></admin-header>
-    <admin-aside class="aside"></admin-aside>
+    <admin-header v-if="!isLogin"></admin-header>
+    <admin-aside v-if="!isLogin" class="aside"></admin-aside>
     <router-view class="main"></router-view>
   </div>
 </template>
@@ -10,9 +10,27 @@ import adminHeader from '@/components/common/adminHeader'
 import adminAside from '@/components/common/adminAside'
 export default {
   name: 'admin',
+  data () {
+    return {
+      isLogin: false
+    }
+  },
   components: {
     adminHeader,
     adminAside
+  },
+  methods: {
+    routerIsLogin () {
+      this.$route.name === 'login' ? this.isLogin = true : this.isLogin = false
+    }
+  },
+  created () {
+    this.routerIsLogin()
+  },
+  watch: {
+    $route (to) {
+      to.name === 'login' ? this.isLogin = true : this.isLogin = false
+    }
   }
 }
 </script>

@@ -17,7 +17,11 @@ export default new Router({
       component: (resolve) => require(['@/components/admin/admin'], resolve),
       children: [{
         path: '',
-        component: (resolve) => require(['@/components/admin/login'], resolve)
+        component: (resolve) => require(['@/components/admin/adminIndex'], resolve)
+      }, {
+        path: 'index',
+        name: 'adminIndex',
+        component: (resolve) => require(['@/components/admin/adminIndex'], resolve)
       }, {
         path: 'login',
         name: 'login',
