@@ -15,7 +15,16 @@
         <el-form-item label="确认密码" prop="checkPass">
           <el-input type="password" v-model="form.checkPass" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item class="dib" label="验证码" prop="code">
+          <el-input v-model="form.code" auto-complete="off"></el-input>
+          <img src="http://pic.qiantucdn.com/58pic/13/68/11/35W58PICzbv_1024.jpg!/fw/1024/watermark/url/L2ltYWdlcy93YXRlcm1hcmsveGlhb3R1LnBuZw==/align/center/crop/0x1024a0a0" alt="">
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('form')">注册</el-button>
+          <el-button @click="resetForm('form')">重置</el-button>
+        </el-form-item>
       </el-form>
+
     </el-card>
   </div>
 </template>
@@ -26,6 +35,13 @@ export default {
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'))
+      } else {
+        callback()
+      }
+    }
+    var validateCode = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入验证码'))
       } else {
         callback()
       }
@@ -53,25 +69,54 @@ export default {
       form: {
         username: '',
         pass: '',
-        checkPass: ''
+        checkPass: '',
+        code: ''
       },
       rules: {
         username: [{validator: validateUsername, trigger: 'blur'}],
         pass: [{validator: validatePass, trigger: 'blur'}],
-        checkPass: [{ validator: validatePass2, trigger: 'blur' }]
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+        checkCode: [{ validator: validateCode, trigger: 'blur' }]
       }
+    }
+  },
+  methods: {
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert(this.form)
+        }
+      })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   }
 }
 </script>
 <style lang="less" scoped>
 .login {
-  display: flex;
-  display: -webkit-flex;
+  display: block;
   height: 100vh;
+  position: relative;
+  width: 100%;
   .register-box {
     width: 480px;
-    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    .dib {
+      .el-input {
+        width: 70%;
+      }
+      img {
+        width: 100px;
+        height: 40px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
     .title {
       line-height: 50px;
       font-size: 24px;

@@ -43,7 +43,7 @@ export default {
   }
   .main {
     float: left;
-    min-width: 1000px;
+    position: relative;
   }
 }
 </style>
