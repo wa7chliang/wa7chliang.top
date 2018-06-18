@@ -17,7 +17,7 @@
         </el-form-item>
         <el-form-item class="dib" label="验证码" prop="code">
           <el-input v-model="form.code" auto-complete="off"></el-input>
-          <img src="http://pic.qiantucdn.com/58pic/13/68/11/35W58PICzbv_1024.jpg!/fw/1024/watermark/url/L2ltYWdlcy93YXRlcm1hcmsveGlhb3R1LnBuZw==/align/center/crop/0x1024a0a0" alt="">
+          <img src="/api/captcha" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">注册</el-button>
@@ -115,6 +115,7 @@ export default {
         height: 40px;
         display: inline-block;
         vertical-align: middle;
+        cursor: pointer;
       }
     }
     .title {
