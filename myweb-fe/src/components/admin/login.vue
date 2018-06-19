@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+import {post} from '@/assets/js/util'
 export default {
   name: 'login',
   data () {
@@ -66,6 +67,7 @@ export default {
       }
     }
     return {
+      myItem: {},
       form: {
         username: '',
         pass: '',
@@ -84,12 +86,30 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert(this.form)
+          const obj = {
+            username: this.form.username,
+            password: this.form.pass,
+            repassword: this.form.checkPass,
+            code: this.form.code
+          }
+          this.register('/api/users/register', obj)
         }
       })
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
+    },
+    async register (url, data) {
+      const regMsg = await post(url, data)
+      if (regMsg.state) {
+        var storage = window.localStorage
+        const storageData = Object.assign({}, regMsg.cont, {'dataTime': new Date().getTime()})
+        storage.setItem('mydata', JSON.stringify(storageData))
+        this.resetForm('form')
+        this.$router.push({path: '/admin'})
+      } else {
+        this.$message.error(regMsg.msg)
+      }
     }
   }
 }

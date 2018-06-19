@@ -1,6 +1,6 @@
 <template>
   <div class="admin">
-    <admin-header v-if="!isLogin"></admin-header>
+    <admin-header v-if="!isLogin" :mydata='mydata'></admin-header>
     <admin-aside v-if="!isLogin" class="aside"></admin-aside>
     <router-view class="main"></router-view>
   </div>
@@ -12,7 +12,8 @@ export default {
   name: 'admin',
   data () {
     return {
-      isLogin: false
+      isLogin: false,
+      mydata: {}
     }
   },
   components: {
@@ -20,16 +21,32 @@ export default {
     adminAside
   },
   methods: {
-    routerIsLogin () {
-      this.$route.name === 'login' ? this.isLogin = true : this.isLogin = false
+    getStorage () {
+      let storage = window.localStorage
+      let storageData = JSON.parse(storage.getItem('mydata'))
+      if (!storageData) {
+        this.isLogin = true
+        this.$router.push({path: '/admin/login'})
+        return
+      } else {
+        this.isLogin = false
+      }
+      if (storageData.dataTime + 1800000 < new Date().getTime()) {
+        storage.removeItem('mydata')
+        this.$router.push({path: '/admin/login'})
+      } else {
+        storageData.dataTime = new Date().getTime()
+        storage.setItem('mydata', JSON.stringify(storageData))
+        this.mydata = storageData
+      }
     }
   },
   created () {
-    this.routerIsLogin()
+    this.getStorage()
   },
   watch: {
-    $route (to) {
-      to.name === 'login' ? this.isLogin = true : this.isLogin = false
+    '$route' (to, from) {
+      if (to.name !== from.name) this.getStorage()
     }
   }
 }

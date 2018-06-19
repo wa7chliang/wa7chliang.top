@@ -5,12 +5,13 @@
         <el-col :span="4"><div class="logo">admin</div></el-col>
         <el-col :offset="4" :span="12"><div class="vhidden">123</div></el-col>
         <el-col :span="4">
-          <el-dropdown trigger="click">
+          <el-dropdown trigger="click" @command="handleCommand">
             <span class="el-dropdown-link users">
-              你好！ {{users}}<i class="el-icon-arrow-down el-icon--right"></i>
+              你好！ {{mydata.name || ''}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>修改密码</el-dropdown-item>
+              <el-dropdown-item command="b" v-if="mydata.name">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -21,9 +22,17 @@
 <script>
 export default {
   name: 'adminHeader',
-  data () {
-    return {
-      users: 'admin'
+  props: ['mydata'],
+  methods: {
+    handleCommand (command) {
+      if (command === 'b') {
+        this.signout()
+      }
+    },
+    signout () {
+      let storage = window.localStorage
+      storage.removeItem('mydata')
+      this.$router.push({path: '/admin/login'})
     }
   }
 }
