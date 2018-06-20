@@ -1,9 +1,9 @@
 <template>
-  <div class="login">
+  <div class="register">
     <el-card class="register-box">
       <p class="title">
-        <span>登陆</span>
-        <router-link class="back" to="/admin/register">去注册</router-link>
+        <span>注册</span>
+        <router-link class="back" to="/admin/login">去登陆</router-link>
       </p>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="用户名:" prop="username">
@@ -12,12 +12,15 @@
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="form.pass" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="form.checkPass" auto-complete="off"></el-input>
+        </el-form-item>
         <el-form-item class="dib" label="验证码" prop="code">
           <el-input v-model="form.code" auto-complete="off"></el-input>
           <img src="/api/captcha" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form')">登陆</el-button>
+          <el-button type="primary" @click="submitForm('form')">注册</el-button>
           <el-button @click="resetForm('form')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -27,8 +30,8 @@
 <script>
 import {post} from '@/assets/js/util'
 export default {
-  name: 'login',
-  data () {
+  name: 'register',
+    data () {
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'))
@@ -39,6 +42,18 @@ export default {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
+      } else {
+        if (this.form.checkPass !== '') {
+          this.$refs.form.validateField('checkPass')
+        }
+        callback()
+      }
+    }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.form.pass) {
+        callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
       }
@@ -55,11 +70,13 @@ export default {
       form: {
         username: '',
         pass: '',
+        checkPass: '',
         code: ''
       },
       rules: {
         username: [{validator: validateUsername, trigger: 'blur'}],
         pass: [{validator: validatePass, trigger: 'blur'}],
+        checkPass: [{ validator: validatePass2, trigger: 'blur' }],
         code: [{ validator: validateCode, trigger: 'blur' }]
       }
     }
@@ -71,23 +88,25 @@ export default {
           const obj = {
             username: this.form.username,
             password: this.form.pass,
+            repassword: this.form.checkPass,
             code: this.form.code
           }
-          this.login('/api/users/signin', obj)
+          this.register('/api/users/register', obj)
         }
       })
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
     },
-    async login (url, data) {
+    async register (url, data) {
       const regMsg = await post(url, data)
       if (regMsg.state) {
         var storage = window.localStorage
         const storageData = Object.assign({}, regMsg.cont, {'dataTime': new Date().getTime()})
         storage.setItem('mydata', JSON.stringify(storageData))
+        this.resetForm('form')
         this.$message({
-          message: '登陆成功',
+          message: '注册成功',
           type: 'success'
         })
         this.$router.push({path: '/admin'})
@@ -98,8 +117,8 @@ export default {
   }
 }
 </script>
-<style lang="less" scoped>
-.login {
+<style lang="less">
+.register {
   display: block;
   height: 100vh;
   position: relative;
@@ -138,5 +157,4 @@ export default {
     }
   }
 }
-
 </style>

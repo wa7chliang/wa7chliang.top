@@ -25,7 +25,7 @@ router.post('/register', function (req, res, next) {
     } else {
       password = sha1(password)
       let obj = {
-        name: name,
+        username: name,
         password: password,
       } 
       userModel.findDataByUserName(name)

@@ -25,6 +25,10 @@ export default new Router({
         path: 'login',
         name: 'login',
         component: (resolve) => require(['@/components/admin/login'], resolve)
+      }, {
+        path: 'register',
+        name: 'register',
+        component: (resolve) => require(['@/components/admin/register'], resolve)
       }]
     }
   ]

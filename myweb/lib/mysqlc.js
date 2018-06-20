@@ -22,7 +22,7 @@ let findDataByUserName =  ( name ) => {
 
 // 将注册账号写入数据库
 let writeDataByUser = ( obj ) => {
-  let _sql = `INSERT INTO users(username,password) VALUES("${obj.name}","${obj.password}");`
+  let _sql = `INSERT INTO users(username,password) VALUES("${obj.username}","${obj.password}");`
   return query(_sql)
 }
 

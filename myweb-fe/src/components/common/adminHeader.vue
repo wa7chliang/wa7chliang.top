@@ -7,11 +7,11 @@
         <el-col :span="4">
           <el-dropdown trigger="click" @command="handleCommand">
             <span class="el-dropdown-link users">
-              你好！ {{mydata.name || ''}}<i class="el-icon-arrow-down el-icon--right"></i>
+              你好！ {{mydata.username || ''}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>修改密码</el-dropdown-item>
-              <el-dropdown-item command="b" v-if="mydata.name">退出</el-dropdown-item>
+              <el-dropdown-item command="b" v-if="mydata.username">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-col>
@@ -32,7 +32,11 @@ export default {
     signout () {
       let storage = window.localStorage
       storage.removeItem('mydata')
-      this.$router.push({path: '/admin/login'})
+      this.$message({
+        message: '退出成功',
+        type: 'success'
+      })
+      this.$router.push({path: '/admin/index'})
     }
   }
 }

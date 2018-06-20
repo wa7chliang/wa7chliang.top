@@ -42,11 +42,14 @@ export default {
     }
   },
   created () {
+    console.log(1)
     this.getStorage()
   },
   watch: {
     '$route' (to, from) {
-      if (to.name !== from.name) this.getStorage()
+      if (to.name !== 'login' && to.name !== 'register'){
+        this.getStorage()
+      }
     }
   }
 }
