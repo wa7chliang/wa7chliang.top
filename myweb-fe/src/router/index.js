@@ -29,6 +29,10 @@ export default new Router({
         path: 'register',
         name: 'register',
         component: (resolve) => require(['@/components/admin/register'], resolve)
+      }, {
+        path: 'writeArticle',
+        name: 'writeArticle',
+        component: (resolve) => require(['@/components/admin/writeArticle'], resolve)
       }]
     }
   ]

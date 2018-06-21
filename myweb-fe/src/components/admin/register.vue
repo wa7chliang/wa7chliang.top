@@ -117,7 +117,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .register {
   display: block;
   height: 100vh;

@@ -33,6 +33,7 @@ export default {
       }
       if (storageData.dataTime + 1800000 < new Date().getTime()) {
         storage.removeItem('mydata')
+        this.isLogin = true
         this.$router.push({path: '/admin/login'})
       } else {
         storageData.dataTime = new Date().getTime()
@@ -42,7 +43,6 @@ export default {
     }
   },
   created () {
-    console.log(1)
     this.getStorage()
   },
   watch: {

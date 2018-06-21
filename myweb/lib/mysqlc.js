@@ -26,7 +26,14 @@ let writeDataByUser = ( obj ) => {
   return query(_sql)
 }
 
+// 将文章写入数据库
+let writeArticle = ( obj ) => {
+  let _sql = `INSERT INTO posts(title, content, moment) VALUES("${obj.title}", "${obj.content}", "${obj.moment}");`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
-  writeDataByUser
+  writeDataByUser,
+  writeArticle
 }
