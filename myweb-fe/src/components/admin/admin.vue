@@ -1,8 +1,10 @@
 <template>
   <div class="admin">
     <admin-header v-if="!isLogin" :mydata='mydata'></admin-header>
-    <admin-aside v-if="!isLogin" class="aside"></admin-aside>
-    <router-view class="main"></router-view>
+    <div class="content">
+      <admin-aside v-if="!isLogin" class="aside"></admin-aside>
+      <router-view class="main"></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -47,7 +49,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      if (to.name !== 'login' && to.name !== 'register'){
+      if (to.name !== 'login' && to.name !== 'register') {
         this.getStorage()
       }
     }
@@ -58,11 +60,15 @@ export default {
 .admin {
   height: 100vh;
   min-width: 1200px;
-  .aside {
-    float: left;
+  overflow: hidden;
+  .content {
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    display: -webkit-flex;
   }
   .main {
-    float: left;
+    width: 100%;
     position: relative;
   }
 }

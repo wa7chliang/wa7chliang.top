@@ -31,7 +31,7 @@
 import {post} from '@/assets/js/util'
 export default {
   name: 'register',
-    data () {
+  data () {
     var validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'))
