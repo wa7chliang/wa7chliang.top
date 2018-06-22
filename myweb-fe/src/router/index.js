@@ -33,6 +33,10 @@ export default new Router({
         path: 'writeArticle',
         name: 'writeArticle',
         component: (resolve) => require(['@/components/admin/writeArticle'], resolve)
+      }, {
+        path: 'postsList',
+        name: 'postsList',
+        component: (resolve) => require(['@/components/admin/postsList'], resolve)
       }]
     }
   ]

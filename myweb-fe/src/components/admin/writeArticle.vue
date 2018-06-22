@@ -49,7 +49,21 @@ export default {
       // editor.txt.html(this.form.content)
     },
     onSubmit () {
-      console.log(this.form)
+      // <pre><code>&lt;!--more--&gt;</code></pre> 检测去掉这块东西
+      let obj = {...this.form}
+      this.writeArticle('/api/posts/writeArticle', obj)
+    },
+    async writeArticle (url, data) {
+      const regMsg = await post(url, data)
+      if (regMsg.state) {
+        this.$message({
+          message: '文章发表成功',
+          type: 'success'
+        })
+        this.$router.push({path: '/admin/postsList'})
+      } else {
+        this.$message.error(regMsg.msg)
+      }
     }
   },
   mounted () {

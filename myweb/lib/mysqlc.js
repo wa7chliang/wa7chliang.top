@@ -28,7 +28,7 @@ let writeDataByUser = ( obj ) => {
 
 // 将文章写入数据库
 let writeArticle = ( obj ) => {
-  let _sql = `INSERT INTO posts(title, content, moment, types) VALUES("${obj.title}", "${obj.content}", "${obj.moment}", "${obj.types}");`
+  let _sql = `INSERT INTO posts(title,content,moment,types) VALUES("${obj.title}","${obj.content}","${obj.moment}","${obj.types}");`
   return query(_sql)
 }
 
