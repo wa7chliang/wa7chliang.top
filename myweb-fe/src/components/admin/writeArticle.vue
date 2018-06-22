@@ -25,6 +25,7 @@
   </div>
 </template>
 <script>
+import {post} from '@/assets/js/util'
 import E from 'wangeditor'
 export default {
   name: 'writeArticle',
@@ -44,6 +45,8 @@ export default {
         this.form.content = html
       }
       editor.create()
+      // 初始化内容
+      // editor.txt.html(this.form.content)
     },
     onSubmit () {
       console.log(this.form)
