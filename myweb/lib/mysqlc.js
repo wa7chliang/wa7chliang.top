@@ -32,8 +32,22 @@ let writeArticle = ( obj ) => {
   return query(_sql)
 }
 
+// 分页查询文章名称
+let findTitleListByLimit = ( obj ) => {
+  let _sql = `select id,title,moment,pv,types from posts ORDER BY moment DESC limit ${(obj.page-1)*obj.size},${obj.size};`
+  return query(_sql)
+}
+
+// 查询文章列表总数
+let findCountByList = () => {
+  let _sql = `select count(*) AS listCount from posts` //查询总数并命名为listCount
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
-  writeArticle
+  writeArticle,
+  findTitleListByLimit,
+  findCountByList
 }

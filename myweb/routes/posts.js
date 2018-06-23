@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var userModel = require('../lib/mysqlc')
+var postsModel = require('../lib/mysqlc')
 
 router.post('/writeArticle', function (req, res, next) {
   const title = req.body.title
@@ -16,7 +16,7 @@ router.post('/writeArticle', function (req, res, next) {
       throw new Error('内容不能为空')
     } else {
       const obj = {title, content, types, moment}
-      userModel.writeArticle(obj)
+      postsModel.writeArticle(obj)
       .then(result => {
         if(result.affectedRows !== 0) {
           res.json({
@@ -41,6 +41,41 @@ router.post('/writeArticle', function (req, res, next) {
     })
     return
   }
+})
+
+router.get('/getList', function (req, res, next) {
+  const page = req.query.page || 1
+  const size = req.query.size || 10
+  let list = ''
+  let count = 0
+  let obj = {page, size}
+  postsModel.findTitleListByLimit(obj)
+    .then(result => {
+      if (result) {
+        list = result
+        postsModel.findCountByList().then(result2 => {
+          count = result2[0].listCount
+          res.json({
+            state: 1,
+            list,
+            count
+          })
+          return
+        }).catch(e2 =>  {
+          res.json({
+            state: 0,
+            msg: e2.message
+          })
+          return
+        })
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
 })
 
 module.exports = router
