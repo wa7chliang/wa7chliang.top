@@ -44,10 +44,24 @@ let findCountByList = () => {
   return query(_sql)
 }
 
+// 根据id查询文章内容
+let findArticleById = ( obj ) => {
+  let _sql = `select * from posts where id="${obj.id}";`
+  return query(_sql)
+}
+
+// 根据id修改文章内容
+let updateArticleById = ( obj ) => {
+  let _sql = `UPDATE posts SET title="${obj.title}",content="${obj.content}",types="${obj.types}" WHERE id="${obj.id}";`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
   writeArticle,
   findTitleListByLimit,
-  findCountByList
+  findCountByList,
+  findArticleById,
+  updateArticleById
 }

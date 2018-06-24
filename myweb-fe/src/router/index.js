@@ -37,6 +37,10 @@ export default new Router({
         path: 'postsList',
         name: 'postsList',
         component: (resolve) => require(['@/components/admin/postsList'], resolve)
+      }, {
+        path: 'editArticle',
+        name: 'editArticle',
+        component: (resolve) => require(['@/components/admin/editArticle'], resolve)
       }]
     }
   ]

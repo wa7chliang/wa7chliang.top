@@ -78,4 +78,63 @@ router.get('/getList', function (req, res, next) {
     })
 })
 
+router.get('/getArticle', function (req, res, next) {
+  const id = req.query.id
+  const obj = {id}
+  postsModel.findArticleById(obj)
+    .then(result => {
+      res.json({
+        state: 1,
+        result: result[0]
+      })
+      return
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
+router.post('/editArticle', function (req, res, next) {
+  const title = req.body.title
+  const content = req.body.content
+  const types = req.body.types
+  const id = req.body.id
+  const obj = {title, content, types, id}
+    // 校验参数
+    try {
+      if (!title) {
+        throw new Error('标题不能为空')
+      } else if (!content) {
+        throw new Error('内容不能为空')
+      } else {
+        postsModel.updateArticleById(obj)
+          .then(result => {
+            if(result.affectedRows !== 0) {
+              res.json({
+                state: 1,
+                msg: '编辑成功',
+                cont: result
+              })
+              return
+            }
+          }).catch(err => {
+            res.json({
+              state: 0,
+              msg: err.message
+            })
+            return
+          })
+      }
+    } catch (e) {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    }
+})
+
 module.exports = router

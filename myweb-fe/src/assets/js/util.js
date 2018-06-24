@@ -9,12 +9,22 @@ export function post (url, data) {
 }
 
 function request (url, method, data) {
-  return new Promise((resolve, reject) => {
-    axios({
+  let obj = {}
+  if (method === 'get') {
+    obj = {
+      method,
+      url,
+      params: data
+    }
+  } else if (method === 'post') {
+    obj = {
       method,
       url,
       data
-    }).then(res => {
+    }
+  }
+  return new Promise((resolve, reject) => {
+    axios(obj).then(res => {
       resolve(res.data)
     }).catch(err => {
       reject(err)
