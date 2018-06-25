@@ -56,6 +56,12 @@ let updateArticleById = ( obj ) => {
   return query(_sql)
 }
 
+// 根据id删除文章
+let deleteArticleById = ( obj ) => {
+  let _sql = `delete from posts where id="${obj.id}";`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
@@ -63,5 +69,6 @@ module.exports = {
   findTitleListByLimit,
   findCountByList,
   findArticleById,
-  updateArticleById
+  updateArticleById,
+  deleteArticleById
 }

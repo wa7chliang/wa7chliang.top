@@ -37,6 +37,10 @@
             <el-button
             size="mini"
             @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -52,7 +56,7 @@
   </div>
 </template>
 <script>
-import {get} from '@/assets/js/util'
+import {get, post} from '@/assets/js/util'
 export default {
   name: 'postsList',
   data () {
@@ -66,6 +70,27 @@ export default {
   methods: {
     handleEdit (index, row) {
       this.$router.push({path: '/admin/editArticle', query: { id: row.id }})
+    },
+    handleDelete (index, row) {
+      this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteArticle('/api/posts/deleteArticle', {id: row.id})
+      })
+    },
+    async deleteArticle (url, data) {
+      const resMsg = await post(url, data)
+      if (resMsg.state) {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        this.getList()
+      } else {
+        this.$message.error(resMsg.msg)
+      }
     },
     getList () {
       this.getListDate('/api/posts/getList', {page: this.page, size: this.size})

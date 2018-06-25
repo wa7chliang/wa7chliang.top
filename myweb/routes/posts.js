@@ -137,4 +137,25 @@ router.post('/editArticle', function (req, res, next) {
     }
 })
 
+router.post('/deleteArticle', function (req, res, next) {
+  const id = req.body.id
+  const obj = {id}
+  postsModel.deleteArticleById(obj)
+    .then(result => {
+      if(result.affectedRows !== 0) { 
+        res.json({
+          state: 1,
+          cont: result
+        })
+        return
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
 module.exports = router

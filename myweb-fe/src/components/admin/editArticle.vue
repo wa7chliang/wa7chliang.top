@@ -14,7 +14,7 @@
             <el-option label="日常杂文" value="2"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="文章内容">
+        <el-form-item label="文章内容" class="cont-box">
           <div ref="editor"></div>
         </el-form-item>
         <el-form-item>
@@ -91,6 +91,10 @@ export default {
 <style lang="less" scoped>
 .editArticle {
   padding-right: 200px;
+  .cont-box {
+    position: relative;
+    z-index: -1;
+  }
   .title {
     padding: 30px 50px;
     h3 {
