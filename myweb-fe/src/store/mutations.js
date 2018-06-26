@@ -1,16 +1,12 @@
 import getters from './getters.js'
 
 var state = {
-  isLogin: false,
-  isState: false
+  isState: 0
 }
 
 const mutations = {
-  SET_ISLOGIN_STATE (state, flag) {
-    state.isLogin = flag
-  },
-  SET_ISSTATE_STATE (state, flag) {
-    state.isState = flag
+  SET_ISSTATE_STATE (state, num) {
+    state.isState = num
   }
 }
 

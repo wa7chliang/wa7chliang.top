@@ -27,6 +27,7 @@
 <script>
 import {post} from '@/assets/js/util'
 import E from 'wangeditor'
+import {mapGetters} from 'vuex'
 export default {
   name: 'writeArticle',
   data () {
@@ -50,8 +51,12 @@ export default {
     },
     onSubmit () {
       // <pre><code>&lt;!--more--&gt;</code></pre> 检测去掉这块东西
-      let obj = {...this.form}
-      this.writeArticle('/api/posts/writeArticle', obj)
+      if (this.isState) {
+        let obj = {...this.form}
+        this.writeArticle('/api/posts/writeArticle', obj)
+      } else {
+        this.$message.error('权限不足')
+      }
     },
     async writeArticle (url, data) {
       const regMsg = await post(url, data)
@@ -68,6 +73,11 @@ export default {
   },
   mounted () {
     this.initEditor()
+  },
+  computed: {
+    ...mapGetters([
+      'isState'
+    ])
   }
 }
 </script>
@@ -76,7 +86,7 @@ export default {
   padding-right: 200px;
   .cont-box {
     position: relative;
-    z-index: -1;
+    z-index: 0;
   }
   .title {
     padding: 30px 50px;

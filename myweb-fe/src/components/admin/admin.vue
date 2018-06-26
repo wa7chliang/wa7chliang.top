@@ -10,6 +10,7 @@
 <script>
 import adminHeader from '@/components/common/adminHeader'
 import adminAside from '@/components/common/adminAside'
+import {mapMutations} from 'vuex'
 export default {
   name: 'admin',
   data () {
@@ -29,20 +30,24 @@ export default {
       if (!storageData) {
         this.isLogin = true
         this.$router.push({path: '/admin/login'})
-        return
       } else {
         this.isLogin = false
+        if (storageData.dataTime + 1800000 < new Date().getTime()) {
+          storage.removeItem('mydata')
+          this.isLogin = true
+          this.$router.push({path: '/admin/login'})
+        } else {
+          storageData.dataTime = new Date().getTime()
+          storage.setItem('mydata', JSON.stringify(storageData))
+          this.mydata = storageData
+          let state = storageData.state || 0
+          this.setIsstateState(state)
+        }
       }
-      if (storageData.dataTime + 1800000 < new Date().getTime()) {
-        storage.removeItem('mydata')
-        this.isLogin = true
-        this.$router.push({path: '/admin/login'})
-      } else {
-        storageData.dataTime = new Date().getTime()
-        storage.setItem('mydata', JSON.stringify(storageData))
-        this.mydata = storageData
-      }
-    }
+    },
+    ...mapMutations({
+      setIsstateState: 'SET_ISSTATE_STATE'
+    })
   },
   created () {
     this.getStorage()

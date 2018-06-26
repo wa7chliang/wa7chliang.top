@@ -93,7 +93,7 @@ export default {
   padding-right: 200px;
   .cont-box {
     position: relative;
-    z-index: -1;
+    z-index: 0;
   }
   .title {
     padding: 30px 50px;
