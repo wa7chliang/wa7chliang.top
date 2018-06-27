@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="index-header">
     <el-header height="40px">
       <el-row>
         <el-col :span="16" :offset="4">
@@ -11,19 +11,20 @@
         </el-col>
       </el-row>
     </el-header>
-    <div class="banner"></div>
+    <div class="banner">
+      <div class="title-box">
+        <p>wa7chliang的根据地</p>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  name: 'header'
+  name: 'index-header'
 }
 </script>
 <style lang="less" scoped>
-.header {
-  li {
-    list-style: none;
-  }
+.index-header {
   .el-header {
     width: 100%;
     position: absolute;
@@ -38,10 +39,11 @@ export default {
       display: flex;
       display: -webkit-flex;
       li {
-        margin-right: 50px;
+        text-align: center;
         a {
+          padding: 0 25px;
           color: #fff;
-          text-decoration: none;
+          display: block;
         }
         &:hover {
           a {
@@ -59,6 +61,13 @@ export default {
     background-position: center 50%;
     background-repeat: no-repeat;
     background-image: url('http://localhost:3000/public/images/banner1.jpg'); //上线改
+    .title-box {
+      width: 1200px;
+      margin: 0 auto;
+      padding-top: 270px;
+      color: #fff;
+      font-size: 30px;
+    }
   }
 }
 </style>

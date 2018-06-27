@@ -1,18 +1,53 @@
 <template>
   <div class="index">
     <vheader />
-    这里是首页
+    <div class="content-box">
+      <div class="left-box">
+        <indexLeft :allCount="allCount" />
+      </div>
+      <div class="right-box">
+        右边内容
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import indexLeft from '@/components/common/indexLeft'
 import vheader from '@/components/common/header'
 export default {
   name: 'index',
+  data () {
+    return {
+      allCount: 0
+    }
+  },
   components: {
-    vheader
+    vheader,
+    indexLeft
   }
 }
 </script>
-<style>
-
+<style lang="less" scoped>
+.index {
+  background: #efefef;
+}
+.content-box {
+  width: 1200px;
+  margin: 100px auto 0 auto;
+  padding-bottom: 100px;
+  overflow: hidden;
+  .left-box {
+    width: 320px;
+    float: left;
+  }
+  .right-box {
+    width: 800px;
+    float: right;
+  }
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
 </style>

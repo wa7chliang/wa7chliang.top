@@ -15,4 +15,10 @@ export default {
   padding: 0;
   margin: 0;
 }
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 </style>
