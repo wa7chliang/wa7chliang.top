@@ -6,7 +6,7 @@
         <indexLeft :allCount="allCount" />
       </div>
       <div class="right-box">
-        右边内容
+        <router-view class="main"></router-view>
       </div>
     </div>
   </div>
@@ -14,16 +14,32 @@
 <script>
 import indexLeft from '@/components/common/indexLeft'
 import vheader from '@/components/common/header'
+import {mapMutations, mapGetters} from 'vuex'
+import {get} from '@/assets/js/util'
 export default {
   name: 'index',
-  data () {
-    return {
-      allCount: 0
-    }
+  methods: {
+    async getCount (url) {
+      const res = await get(url)
+      if (res.state) {
+        this.setAllCountState(res.count)
+      }
+    },
+    ...mapMutations({
+      setAllCountState: 'SET_ALLCOUNT_STATE'
+    })
+  },
+  computed: {
+    ...mapGetters([
+      'allCount'
+    ])
   },
   components: {
     vheader,
     indexLeft
+  },
+  created () {
+    this.getCount('/api/posts/getCount')
   }
 }
 </script>

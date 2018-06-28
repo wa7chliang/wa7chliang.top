@@ -38,6 +38,12 @@ let findTitleListByLimit = ( obj ) => {
   return query(_sql)
 }
 
+// 分页查询所有文章列表
+let findListByLimit = ( obj ) => {
+  let _sql = `select * from posts ORDER BY moment DESC limit ${(obj.page-1)*obj.size},${obj.size};`
+  return query(_sql)
+}
+
 // 查询文章列表总数
 let findCountByList = () => {
   let _sql = `select count(*) AS listCount from posts` //查询总数并命名为listCount
@@ -70,5 +76,6 @@ module.exports = {
   findCountByList,
   findArticleById,
   updateArticleById,
-  deleteArticleById
+  deleteArticleById,
+  findListByLimit
 }

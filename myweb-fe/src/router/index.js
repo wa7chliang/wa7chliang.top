@@ -8,7 +8,11 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: (resolve) => require(['@/components/index/index'], resolve)
+      component: (resolve) => require(['@/components/index/index'], resolve),
+      children: [{
+        path: '',
+        component: (resolve) => require(['@/components/index/wa7chIndex'], resolve)
+      }]
     },
     {
       path: '/admin',

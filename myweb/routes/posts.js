@@ -78,6 +78,50 @@ router.get('/getList', function (req, res, next) {
     })
 })
 
+// 首页获取总数接口
+router.get('/getCount', function (req, res, next) {
+  let count = 0
+  postsModel.findCountByList().then(result => {
+    count = result[0].listCount
+    res.json({
+      state: 1,
+      count
+    })
+    return
+  }).catch(e => {
+    res.json({
+      state: 0,
+      msg: e.message
+    })
+    return
+  })
+})
+
+// 首页获取全部内容接口
+router.get('/getListAll', function (req, res, next) {
+  const page = req.query.page || 1
+  const size = req.query.size || 5
+  let list = ''
+  let obj = {page, size}
+  postsModel.findListByLimit(obj)
+    .then(result => {
+      if (result) {
+        list = result
+        res.json({
+          state: 1,
+          list,
+        })
+        return
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
 router.get('/getArticle', function (req, res, next) {
   const id = req.query.id
   const obj = {id}
