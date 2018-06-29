@@ -202,4 +202,30 @@ router.post('/deleteArticle', function (req, res, next) {
     })
 })
 
+// 首页打开页面修改pv
+router.post('/addPv', function (req, res, next) {
+  let pv = req.body.pv
+  const id = req.body.id
+  let obj = {
+    id,
+    pv: ++pv
+  }
+  postsModel.updataPvById(obj)
+    .then(result => {
+      if(result.affectedRows !== 0) { 
+        res.json({
+          state: 1,
+          cont: result
+        })
+        return
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
 module.exports = router

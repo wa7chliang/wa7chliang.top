@@ -62,6 +62,12 @@ let updateArticleById = ( obj ) => {
   return query(_sql)
 }
 
+// 根据id增加pv
+let updataPvById = ( obj ) => {
+  let _sql = `UPDATE posts SET pv="${obj.pv}" WHERE id="${obj.id}";`
+  return query(_sql)
+}
+
 // 根据id删除文章
 let deleteArticleById = ( obj ) => {
   let _sql = `delete from posts where id="${obj.id}";`
@@ -77,5 +83,6 @@ module.exports = {
   findArticleById,
   updateArticleById,
   deleteArticleById,
-  findListByLimit
+  findListByLimit,
+  updataPvById
 }
