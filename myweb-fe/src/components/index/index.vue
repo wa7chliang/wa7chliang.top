@@ -9,11 +9,13 @@
         <router-view class="main"></router-view>
       </div>
     </div>
+    <vfooter />
   </div>
 </template>
 <script>
 import indexLeft from '@/components/common/indexLeft'
 import vheader from '@/components/common/header'
+import vfooter from '@/components/common/footer'
 import {mapMutations, mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
 export default {
@@ -36,7 +38,8 @@ export default {
   },
   components: {
     vheader,
-    indexLeft
+    indexLeft,
+    vfooter
   },
   created () {
     this.getCount('/api/posts/getCount')

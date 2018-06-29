@@ -8,8 +8,8 @@
             <span class="moment">发表于:{{cutMoment(item.moment)}}</span>
             <span class="pv">浏览次数:{{item.pv}}</span>
           </div>
-          <div class="content-box" v-html="item.content"></div>
-          <router-link class="more-a" to="/">
+          <div class="content-box" v-html="cutContent(item.content)"></div>
+          <router-link class="more-a" :to="{path: '/article/'+item.id }">
             <el-button type="primary" size="small">阅读全文 »</el-button>
           </router-link>
         </li>
@@ -20,6 +20,7 @@
         background
         layout="prev, pager, next"
         :page-size="5"
+        @current-change="currentChange"
         :total="allCount">
       </el-pagination>
     </div>
@@ -32,21 +33,7 @@ export default {
   name: 'wa7chIndex',
   data () {
     return {
-      list: [{
-        id: 1,
-        title: '123',
-        content: '<p>这里是内容</p>',
-        moment: '2018-6-22 21:57:56',
-        pv: 0,
-        types: 1
-      }, {
-        id: 2,
-        title: '123',
-        content: '<p>这里是内容</p>',
-        moment: '2018-6-22 21:57:56',
-        pv: 0,
-        types: 1
-      }],
+      list: [],
       page: 1
     }
   },
@@ -54,10 +41,22 @@ export default {
     cutMoment (moment) {
       return moment.slice(0, moment.indexOf(' '))
     },
+    cutContent (content) {
+      if (content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0) {
+        return content.slice(0, content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>'))
+      }
+      return content
+    },
     async getList (url, data) {
       const res = await get(url, data)
       if (res.state) {
         this.list = res.list
+      }
+    },
+    currentChange (val) {
+      if (val !== this.page) {
+        this.page = val
+        this.getList('/api/posts/getListAll', {page: this.page})
       }
     }
   },
