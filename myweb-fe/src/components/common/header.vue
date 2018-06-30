@@ -7,7 +7,7 @@
             <li><router-link to="/">首页</router-link></li>
             <li><router-link to="/">所有文章</router-link></li>
             <li><router-link to="/">友链</router-link></li>
-            <li><router-link to="/">关于我</router-link></li>
+            <li><router-link to="/aboutme">关于我</router-link></li>
           </ul>
         </el-col>
       </el-row>

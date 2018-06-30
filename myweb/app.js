@@ -39,8 +39,7 @@ app.use('/api/posts', posts)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  res.sendfile('index.html')
-  // next(createError(404));
+  res.status(404).sendfile('index.html')
 });
 
 // error handler

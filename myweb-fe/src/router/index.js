@@ -16,6 +16,10 @@ export default new Router({
         path: 'article/:id',
         name: 'article',
         component: (resolve) => require(['@/components/index/article'], resolve)
+      }, {
+        path: 'aboutme',
+        name: 'aboutme',
+        component: (resolve) => require(['@/components/index/aboutMe'], resolve)
       }]
     },
     {
@@ -50,6 +54,10 @@ export default new Router({
         name: 'editArticle',
         component: (resolve) => require(['@/components/admin/editArticle'], resolve)
       }]
+    }, {
+      path: '*',
+      name: 'notFound',
+      component: (resolve) => require(['@/components/common/NotFoundComponent'], resolve)
     }
   ]
 })
