@@ -159,7 +159,19 @@ router.post('/editArticle', function (req, res, next) {
   const content = req.body.content
   const types = req.body.types
   const id = req.body.id
-  const obj = {title, content, types, id}
+
+  // 对于特殊字符双引号进行转义(解决数据库不能存双引号的问题)
+  let newContent = content.replace(/["]/g, (target) => {
+    return {
+        '"': '&quot;',
+    }[target]
+  })
+  let newTitle = title.replace(/["]/g, (target) => {
+    return {
+        '"': '&quot;',
+    }[target]
+  })
+  const obj = {title: newTitle, content: newContent, types, id}
     // 校验参数
     try {
       if (!title) {
