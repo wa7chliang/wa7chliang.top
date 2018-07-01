@@ -8,6 +8,19 @@ router.post('/writeArticle', function (req, res, next) {
   const types = req.body.types
   let d = new Date()
   const moment = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())}:${(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds())}`
+
+  // 对于特殊字符双引号进行转义(解决数据库不能存双引号的问题)
+  let newContent = content.replace(/["]/g, (target) => {
+    return {
+        '"': '&quot;',
+    }[target]
+  })
+  let newTitle = title.replace(/["]/g, (target) => {
+    return {
+        '"': '&quot;',
+    }[target]
+  })
+  
   // 校验参数
   try {
     if (!title) {
@@ -15,7 +28,7 @@ router.post('/writeArticle', function (req, res, next) {
     } else if (!content) {
       throw new Error('内容不能为空')
     } else {
-      const obj = {title, content, types, moment}
+      const obj = {title: newTitle, content: newContent, types, moment}
       postsModel.writeArticle(obj)
       .then(result => {
         if(result.affectedRows !== 0) {

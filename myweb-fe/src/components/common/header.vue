@@ -61,7 +61,7 @@ export default {
     background-size: cover;
     background-position: center 50%;
     background-repeat: no-repeat;
-    background-image: url('http://localhost:3000/public/images/banner1.jpg'); //上线改
+    background-image: url('http://wa7chliang.top/public/images/banner1.jpg'); //上线改
     .title-box {
       width: 1200px;
       margin: 0 auto;
