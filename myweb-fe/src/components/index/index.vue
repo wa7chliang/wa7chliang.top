@@ -49,6 +49,7 @@ export default {
 <style lang="less" scoped>
 .index {
   background: #efefef;
+  overflow: hidden;
 }
 .content-box {
   width: 1200px;
@@ -67,6 +68,16 @@ export default {
     content: '';
     display: block;
     clear: both;
+  }
+}
+</style>
+<style lang="less">
+.article, .wa7chIndex {
+  pre {
+    padding: 1em;
+    background: #f6f6f6;
+    margin: 1.5em 0;
+    border-radius: 4px;
   }
 }
 </style>

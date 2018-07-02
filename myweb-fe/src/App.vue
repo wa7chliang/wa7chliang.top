@@ -15,6 +15,9 @@ export default {
   padding: 0;
   margin: 0;
 }
+body {
+  font-family: -apple-system,"Helvetica Neue",Helvetica,Arial,"PingFang SC","Hiragino Sans GB","WenQuanYi Micro Hei","Microsoft Yahei",sans-serif;
+}
 li {
   list-style: none;
 }
