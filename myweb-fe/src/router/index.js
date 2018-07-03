@@ -20,6 +20,10 @@ export default new Router({
         path: 'aboutme',
         name: 'aboutme',
         component: (resolve) => require(['@/components/index/aboutMe'], resolve)
+      }, {
+        path: 'allList',
+        name: 'allList',
+        component: (resolve) => require(['@/components/index/allList'], resolve)
       }]
     },
     {
