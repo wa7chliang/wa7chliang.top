@@ -14,7 +14,7 @@
       </a>
     </div>
     <ul class="nav-list">
-      <li><router-link to="/">杂谈：<span>{{ allCount }}</span></router-link></li>
+      <li><router-link to="/allList">杂谈：<span>{{ allCount }}</span></router-link></li>
       <li><router-link to="/">类型：<span>2</span></router-link></li>
     </ul>
   </div>

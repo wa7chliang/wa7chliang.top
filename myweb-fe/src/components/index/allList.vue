@@ -18,9 +18,19 @@
         </li>
       </ul>
     </div>
+    <div class="pagination">
+      <el-pagination
+        background
+        layout="total, prev, pager, next"
+        :page-size="10"
+        @current-change="currentChange"
+        :total="allCount">
+      </el-pagination>
+    </div>
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
 export default {
   name: 'all-list',
@@ -39,10 +49,21 @@ export default {
       if (res.state) {
         this.list = res.list
       }
+    },
+    currentChange (val) {
+      if (val !== this.page) {
+        this.page = val
+        this.getList('/api/posts/getList', {page: this.page})
+      }
     }
   },
   created () {
     this.getList('/api/posts/getList', {page: this.page})
+  },
+  computed: {
+    ...mapGetters([
+      'allCount'
+    ])
   }
 }
 </script>
@@ -74,6 +95,12 @@ export default {
         }
       }
     }
+  }
+  .pagination {
+    padding: 15px 0;
+    background: #fff;
+    border-radius: 5px;
+    text-align: center;
   }
 }
 </style>
