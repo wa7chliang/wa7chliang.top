@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var users = require('./routes/users');
 var captcha = require('./routes/captcha')
 var posts = require('./routes/posts')
+var friend = require('./routes/friend')
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use('/', indexRouter);
 app.use('/api/users', users);
 app.use('/api/captcha', captcha)
 app.use('/api/posts', posts)
+app.use('/api/friend', friend)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

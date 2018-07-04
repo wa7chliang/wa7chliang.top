@@ -74,6 +74,12 @@ let deleteArticleById = ( obj ) => {
   return query(_sql)
 }
 
+// 将友链写入数据库
+let writeFriend = ( obj ) => {
+  let _sql = `INSERT INTO friend(friend_name,images_link,address_link) VALUES("${obj.friend_name}","${obj.images_link}","${obj.address_link}");`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
@@ -84,5 +90,6 @@ module.exports = {
   updateArticleById,
   deleteArticleById,
   findListByLimit,
-  updataPvById
+  updataPvById,
+  writeFriend
 }
