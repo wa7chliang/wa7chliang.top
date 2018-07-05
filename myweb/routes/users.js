@@ -5,15 +5,19 @@ var userModel = require('../lib/mysqlc')
 
 // 注册提交
 router.post('/register', function (req, res, next) {
-  const name = req.body.username
-  let password = req.body.password
+  const name = req.body.username.trim()
+  let password = req.body.password.trim()
   const repassword = req.body.repassword
   let code = req.body.code.toUpperCase()
   let captcha = req.session.captcha
+  //用于验证是否存在特殊字符
+  var myReg = /[\@\#\$\%\^\&\*\(\)\{\}\:\"\L\<\>\?\[\]]/
   // 校验参数
   try {
     if (!(name.length >= 1 && name.length <= 10)) {
       throw new Error('名字请限制在1-10个字符')
+    } else if (myReg.test(name)) {
+      throw new Error('名字不能出现特殊字符')
     } else if (password.length < 6) {
       throw new Error('密码至少6个字符')
     } else if (password !== repassword) {
@@ -69,13 +73,16 @@ router.post('/register', function (req, res, next) {
 
 // 登录
 router.post('/signin', function (req, res, next) {
-  const name = req.body.username
-  let password = req.body.password
+  const name = req.body.username.trim()
+  let password = req.body.password.trim()
   let code = req.body.code.toUpperCase()
   let captcha = req.session.captcha
+  var myReg = /[\@\#\$\%\^\&\*\(\)\{\}\:\"\L\<\>\?\[\]]/
   try {
     if (!(name.length >= 1 && name.length <= 10)) {
       throw new Error('名字请限制在1-10个字符')
+    } else if (myReg.test(name)) {
+      throw new Error('名字不能出现特殊字符')
     } else if (password.length < 6) {
       throw new Error('密码至少6个字符')
     } else if (code !== captcha) {
