@@ -57,6 +57,10 @@ export default new Router({
         path: 'editArticle',
         name: 'editArticle',
         component: (resolve) => require(['@/components/admin/editArticle'], resolve)
+      }, {
+        path: 'addFriend',
+        name: 'addFriend',
+        component: (resolve) => require(['@/components/admin/addFriend'], resolve)
       }]
     }, {
       path: '*',

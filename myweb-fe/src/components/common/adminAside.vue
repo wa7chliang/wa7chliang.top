@@ -25,6 +25,15 @@
             <el-menu-item index="/admin/postsList">文章列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-circle-check"></i>
+            <span>友链管理</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/admin/addFriend">添加友链</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
   </div>
