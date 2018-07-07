@@ -14,14 +14,18 @@
     </el-header>
     <div class="banner">
       <div class="title-box">
-        <p>wa7chliang的根据地</p>
+        <p ref="autoName">wa7chliang的根据地</p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import {autoSize} from '@/assets/js/autoSize'
 export default {
-  name: 'index-header'
+  name: 'index-header',
+  mounted () {
+    autoSize(this.$refs.autoName, 'wa7chliang的根据地').next()
+  }
 }
 </script>
 <style lang="less" scoped>
