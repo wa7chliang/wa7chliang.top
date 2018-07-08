@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import {autoSize} from '@/assets/js/autoSize'
+const autoSize = require('@/assets/js/autoSize')
 export default {
   name: 'index-header',
   mounted () {

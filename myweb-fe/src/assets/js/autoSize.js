@@ -1,4 +1,4 @@
-export function autoSize (el, str, options) {
+var autoSize = function (el, str, options) {
   function AutoSize2 (el, str, options) {
     this.el = typeof el === 'string' ? document.querySelector(el) : el
     this.defaultOptions = {
@@ -33,4 +33,8 @@ export function autoSize (el, str, options) {
   }
 
   return new AutoSize2(el, str, options)
+}
+
+if (module !== 'undefined') {
+  module.exports = autoSize
 }
