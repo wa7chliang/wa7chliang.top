@@ -43,4 +43,25 @@ router.post('/writeFriend', function (req, res, next) {
   }
 })
 
+router.get('/getFriendList', function (req, res, next) {
+  let list = []
+  friendModel.selectFriendList()
+    .then(result => {
+      if (result) {
+        list = result
+        res.json({
+          state: 1,
+          list
+        })
+        return
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
 module.exports = router

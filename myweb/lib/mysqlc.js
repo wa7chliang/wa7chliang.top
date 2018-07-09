@@ -80,6 +80,12 @@ let writeFriend = ( obj ) => {
   return query(_sql)
 }
 
+// 查找所有的友链列表
+let selectFriendList = () => {
+  let _sql = `select * from friend;`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
@@ -91,5 +97,6 @@ module.exports = {
   deleteArticleById,
   findListByLimit,
   updataPvById,
-  writeFriend
+  writeFriend,
+  selectFriendList
 }

@@ -33,6 +33,9 @@
           <el-menu-item-group>
             <el-menu-item index="/admin/addFriend">添加友链</el-menu-item>
           </el-menu-item-group>
+          <el-menu-item-group>
+            <el-menu-item index="/admin/friendList">友链列表</el-menu-item>
+          </el-menu-item-group>
         </el-submenu>
       </el-menu>
     </el-aside>

@@ -61,6 +61,10 @@ export default new Router({
         path: 'addFriend',
         name: 'addFriend',
         component: (resolve) => require(['@/components/admin/addFriend'], resolve)
+      }, {
+        path: 'friendList',
+        name: 'friendList',
+        component: (resolve) => require(['@/components/admin/friendList'], resolve)
       }]
     }, {
       path: '*',
