@@ -64,4 +64,25 @@ router.get('/getFriendList', function (req, res, next) {
     })
 })
 
+router.get('/getFriendContent', function (req, res, next) {
+  let id = req.query.id
+  const obj = {id}
+  friendModel.selectFriendById(obj)
+    .then(result => {
+      if (result) {
+        res.json({
+          state: 1,
+          cont: result[0]
+        })
+        return
+      }
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
+      })
+      return
+    })
+})
+
 module.exports = router
