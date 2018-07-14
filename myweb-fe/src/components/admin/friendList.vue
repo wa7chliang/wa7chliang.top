@@ -44,6 +44,7 @@
 </template>
 <script>
 import {get} from '@/assets/js/util'
+import {mapGetters} from 'vuex'
 export default {
   name: 'friendList',
   data () {
@@ -53,7 +54,11 @@ export default {
   },
   methods: {
     handleEdit (index, row) {
-
+      if (this.isState) {
+        this.$router.push({path: '/admin/editFriend', query: { id: row.id }})
+      } else {
+        this.$message.error('权限不足')
+      }
     },
     handleDelete (index, row) {
 
@@ -67,6 +72,11 @@ export default {
   },
   created () {
     this.getList('/api/friend/getFriendList')
+  },
+  computed: {
+    ...mapGetters([
+      'isState'
+    ])
   }
 }
 </script>
