@@ -92,6 +92,12 @@ let selectFriendById = ( obj ) => {
   return query(_sql)
 }
 
+// 通过id修改友链内容
+let updataFriendById = ( obj ) => {
+  let _sql = `UPDATE friend SET friend_name="${obj.friend_name}",images_link="${obj.images_link}",address_link="${obj.address_link}" WHERE id="${obj.id}";`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
@@ -105,5 +111,6 @@ module.exports = {
   updataPvById,
   writeFriend,
   selectFriendList,
-  selectFriendById
+  selectFriendById,
+  updataFriendById
 }

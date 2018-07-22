@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import {get} from '@/assets/js/util'
+import {get, post} from '@/assets/js/util'
 export default {
   name: 'edit-friend',
   data () {
@@ -36,7 +36,8 @@ export default {
   },
   methods: {
     onSubmit () {
-
+      let obj = {...this.form, id: this.$route.query.id}
+      this.submitEditFriend('/api/friend/editFriend', obj)
     },
     ifEdit () {
       if (this.$route.query.id) {
@@ -52,6 +53,18 @@ export default {
         this.form = res.cont
       } else {
         this.$router.push({path: '/admin'})
+      }
+    },
+    async submitEditFriend (url, data) {
+      const resMsg = await post(url, data)
+      if (resMsg.state) {
+        this.$message({
+          message: '友链编辑成功',
+          type: 'success'
+        })
+        this.$router.push({path: '/admin/friendList'})
+      } else {
+        this.$message.error(resMsg.msg)
       }
     }
   },
