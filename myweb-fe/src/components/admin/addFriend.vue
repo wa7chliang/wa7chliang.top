@@ -51,7 +51,7 @@ export default {
           message: '添加友链成功',
           type: 'success'
         })
-        this.$router.push({path: '/admin'})
+        this.$router.push({path: '/admin/friendList'})
       } else {
         this.$message.error(resMsg.msg)
       }

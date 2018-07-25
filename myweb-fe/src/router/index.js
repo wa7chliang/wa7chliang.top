@@ -24,6 +24,10 @@ export default new Router({
         path: 'allList',
         name: 'allList',
         component: (resolve) => require(['@/components/index/allList'], resolve)
+      }, {
+        path: 'friend',
+        name: 'friend',
+        component: (resolve) => require(['@/components/index/friend'], resolve)
       }]
     },
     {

@@ -57,6 +57,7 @@ export default {
       if (val !== this.page) {
         this.page = val
         this.getList('/api/posts/getListAll', {page: this.page})
+        window.scrollTo(0, 0)
       }
     }
   },

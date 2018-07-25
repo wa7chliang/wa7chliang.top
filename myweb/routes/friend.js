@@ -127,4 +127,25 @@ router.post('/editFriend', function (req, res, next) {
   }
 })
 
+router.post('/deleteFriend', function (req, res, next) {
+  const id = req.body.id
+  const obj = {id}
+  friendModel.deleteFriendById(obj)
+  .then(result => {
+    if(result.affectedRows !== 0) { 
+      res.json({
+        state: 1,
+        cont: result
+      })
+      return
+    }
+  }).catch(e => {
+    res.json({
+      state: 0,
+      msg: e.message
+    })
+    return
+  })
+})
+
 module.exports = router

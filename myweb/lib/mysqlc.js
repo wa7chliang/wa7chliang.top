@@ -98,6 +98,12 @@ let updataFriendById = ( obj ) => {
   return query(_sql)
 }
 
+// 通过id删除友链内容
+let deleteFriendById = ( obj ) => {
+  let _sql = `delete from friend where id="${obj.id}";`
+  return query(_sql)
+}
+
 module.exports = {
   findDataByUserName,
   writeDataByUser,
@@ -112,5 +118,6 @@ module.exports = {
   writeFriend,
   selectFriendList,
   selectFriendById,
-  updataFriendById
+  updataFriendById,
+  deleteFriendById
 }

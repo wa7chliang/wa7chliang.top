@@ -43,7 +43,7 @@
   </div>
 </template>
 <script>
-import {get} from '@/assets/js/util'
+import {get, post} from '@/assets/js/util'
 import {mapGetters} from 'vuex'
 export default {
   name: 'friendList',
@@ -61,12 +61,32 @@ export default {
       }
     },
     handleDelete (index, row) {
-
+      if (this.isState) {
+        this.$confirm('此操作将永久删除该友链, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.deleteFriend('/api/friend/deleteFriend', {id: row.id})
+        })
+      } else {
+        this.$message.error('权限不足')
+      }
     },
     async getList (url) {
       const resMsg = await get(url)
       if (resMsg.state) {
         this.tableData = resMsg.list
+      }
+    },
+    async deleteFriend (url, data) {
+      const resMsg = await post(url, data)
+      if (resMsg.state) {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        this.getList('/api/friend/getFriendList')
       }
     }
   },
