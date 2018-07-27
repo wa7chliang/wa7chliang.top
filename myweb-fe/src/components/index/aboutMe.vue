@@ -4,6 +4,7 @@
       <h3>关于我</h3>
       <img src="https://avatars3.githubusercontent.com/u/26890547?s=460&v=4" alt="我的头像" class="my-img">
       <div class="my-msg">
+        <p>关于我：喜欢动漫、二次元、switch游戏、敲代码</p>
         <p>github: <a href="https://github.com/wa7chliang">wa7chliang</a></p>
         <p>微博：<a href="https://weibo.com/1592017851/">进入微博</a></p>
         <p>知乎：<a href="https://www.zhihu.com/people/wa7ch/activities">进入知乎</a></p>

@@ -5,13 +5,19 @@
       <ul class="ul-list">
         <li v-for="(value, index) in friendList" :key="index">
           <a :href="address(value.address_link)">
-            <div class="img-box">
+            <div class="font-box" v-if="value.images_link === 'none'">
+              {{value.friend_name.slice(0, 2)}}
+            </div>
+            <div class="img-box" v-else>
               <img :src="value.images_link">
             </div>
             <span>{{value.friend_name}}</span>
           </a>
         </li>
       </ul>
+      <div class="tips">
+        <p>互链的朋友请讲博客名称、博客地址、头像地址发送到邮箱wa7chliang@163.com！！欢迎各位朋友互链</p>
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +35,6 @@ export default {
       const resMsg = await get(url)
       if (resMsg.state) {
         this.friendList = resMsg.list
-        console.log(this.friendList)
       }
     },
     address (url) {
@@ -75,6 +80,18 @@ export default {
             width: 100%;
           }
         }
+        .font-box {
+          width: 40px;
+          height: 40px;
+          border-radius: 80%;
+          background: orange;
+          line-height: 40px;
+          text-align: center;
+          font-size: 14px;
+          color: #fff;
+          float: left;
+          margin-right: 30px;
+        }
         span {
           line-height: 40px;
           font-size: 20px;
@@ -96,6 +113,10 @@ export default {
         display: block;
         clear: both;
       }
+    }
+    .tips {
+      font-size: 14px;
+      color: #666;
     }
   }
 }
