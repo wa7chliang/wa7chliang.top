@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sha1 = require('sha1')
 var userModel = require('../lib/mysqlc')
+const init = require('../config')
 
 // 注册提交
 router.post('/register', function (req, res, next) {
@@ -10,6 +11,7 @@ router.post('/register', function (req, res, next) {
   const repassword = req.body.repassword
   let code = req.body.code.toUpperCase()
   let captcha = req.session.captcha
+  let registerCode = req.body.registerCode.trim()
   //用于验证是否存在特殊字符
   var myReg = /[\@\#\$\%\^\&\*\(\)\{\}\:\"\L\<\>\?\[\]]/
   // 校验参数
@@ -24,6 +26,10 @@ router.post('/register', function (req, res, next) {
       throw new Error('两次输入密码不一致')
     } else if (code !== captcha) {
       throw new Error('验证码错误')
+    } else if (registerCode === '') {
+      throw new Error('注册码不能为空')
+    } else if (registerCode !== init.registerCode) {
+      throw new Error('注册码错误')
     } else {
       password = sha1(password)
       let obj = {

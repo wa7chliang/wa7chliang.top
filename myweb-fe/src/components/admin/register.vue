@@ -15,6 +15,9 @@
         <el-form-item label="确认密码" prop="checkPass">
           <el-input type="password" v-model="form.checkPass" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item label="注册码" prop="registerCode">
+          <el-input v-model="form.registerCode" auto-complete="off"></el-input>
+        </el-form-item>
         <el-form-item class="dib" label="验证码" prop="code">
           <el-input v-model="form.code" auto-complete="off"></el-input>
           <img src="/api/captcha" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
@@ -65,19 +68,28 @@ export default {
         callback()
       }
     }
+    var validateregisterCode = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入注册码'))
+      } else {
+        callback()
+      }
+    }
     return {
       myItem: {},
       form: {
         username: '',
         pass: '',
         checkPass: '',
-        code: ''
+        code: '',
+        registerCode: ''
       },
       rules: {
         username: [{validator: validateUsername, trigger: 'blur'}],
         pass: [{validator: validatePass, trigger: 'blur'}],
         checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-        code: [{ validator: validateCode, trigger: 'blur' }]
+        code: [{ validator: validateCode, trigger: 'blur' }],
+        registerCode: [{ validator: validateregisterCode, trigger: 'blur' }]
       }
     }
   },
@@ -89,7 +101,8 @@ export default {
             username: this.form.username,
             password: this.form.pass,
             repassword: this.form.checkPass,
-            code: this.form.code
+            code: this.form.code,
+            registerCode: this.form.registerCode
           }
           this.register('/api/users/register', obj)
         }

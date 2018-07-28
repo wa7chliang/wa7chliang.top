@@ -79,5 +79,17 @@ export default {
     margin: 1.5em 0;
     border-radius: 4px;
   }
+  table {
+    margin: 20px 0;
+    border: 1px solid #eee;
+    tr {
+      th, td {
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+    }
+  }
 }
 </style>
