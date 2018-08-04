@@ -8,8 +8,16 @@ import router from './router'
 import store from './store/'
 
 Vue.use(ElementUI)
+Vue.cancel = []
 
 Vue.config.productionTip = false
+
+router.beforeEach((to, from, next) => {
+  while (Vue.cancel.length > 0) {
+    Vue.cancel.pop()('请求中断')
+  }
+  next()
+})
 
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)

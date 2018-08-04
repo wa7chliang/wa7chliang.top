@@ -1,4 +1,6 @@
 import axios from 'axios'
+import Vue from 'vue'
+const CancelToken = axios.CancelToken
 
 export function get (url, data) {
   return request(url, 'get', data)
@@ -10,17 +12,22 @@ export function post (url, data) {
 
 function request (url, method, data) {
   let obj = {}
+  let cancelToken = new CancelToken(function executor (c) {
+    Vue.cancel.push(c)
+  })
   if (method === 'get') {
     obj = {
       method,
       url,
-      params: data
+      params: data,
+      cancelToken
     }
   } else if (method === 'post') {
     obj = {
       method,
       url,
-      data
+      data,
+      cancelToken
     }
   }
   return new Promise((resolve, reject) => {
