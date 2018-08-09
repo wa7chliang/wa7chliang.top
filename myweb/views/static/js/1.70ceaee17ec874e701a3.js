@@ -1,0 +1,2 @@
+webpackJsonp([1],{ENMX:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var i={render:function(){var e=this.$createElement;return(this._self._c||e)("div",{staticClass:"admin-index"},[this._v("\n  这里是管理首页\n")])},staticRenderFns:[]};var s=t("VU/8")({name:"admin-index"},i,!1,function(e){t("sC8v")},null,null);n.default=s.exports},sC8v:function(e,n){}});
+//# sourceMappingURL=1.70ceaee17ec874e701a3.js.map
