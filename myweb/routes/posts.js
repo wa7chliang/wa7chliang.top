@@ -7,7 +7,7 @@ router.post('/writeArticle', function (req, res, next) {
   const content = req.body.content
   const types = req.body.types
   let d = new Date()
-  const moment = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}:${(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())}:${(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds())}`
+  const moment = `${d.getFullYear()}-${(d.getMonth()+1)<10?'0'+(d.getMonth()+1):d.getMonth()+1}-${d.getDate()<10?'0'+d.getDate():d.getDate()} ${d.getHours()}:${(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())}:${(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds())}`
 
   // 对于特殊字符双引号进行转义(解决数据库不能存双引号的问题)
   let newContent = content.replace(/["]/g, (target) => {
