@@ -11,7 +11,7 @@ export default {
   name: 'index-footer',
   computed: {
     day () {
-      let birTime = new Date('2018-6-29').getTime()
+      let birTime = new Date('2018/6/29').getTime()
       let nowTime = new Date().getTime()
       return Math.ceil((nowTime - birTime) / 1000 / 60 / 60 / 24)
     }
