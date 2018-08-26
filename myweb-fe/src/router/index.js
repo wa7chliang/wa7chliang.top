@@ -73,6 +73,18 @@ export default new Router({
         path: 'editFriend',
         name: 'editFriend',
         component: (resolve) => require(['@/components/admin/editFriend'], resolve)
+      }, {
+        path: 'videoArray',
+        name: 'videoArray',
+        component: (resolve) => require(['@/components/admin/videoArray'], resolve)
+      }, {
+        path: 'addVideoArray',
+        name: 'addVideoArray',
+        component: (resolve) => require(['@/components/admin/addVideoArray'], resolve)
+      }, {
+        path: 'editVideoArray',
+        name: 'editVideoArray',
+        component: (resolve) => require(['@/components/admin/editVideoArray'], resolve)
       }]
     }, {
       path: '*',

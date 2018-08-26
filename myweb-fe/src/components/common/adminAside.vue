@@ -37,6 +37,18 @@
             <el-menu-item index="/admin/friendList">友链列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+        <el-submenu index="4">
+          <template slot="title">
+            <i class="el-icon-star-on"></i>
+            <span>我的动漫</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item index="/admin/videoArray">动漫列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <el-menu-item index="/admin/addVideoArray">添加动漫</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
   </div>
