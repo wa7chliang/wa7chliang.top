@@ -84,7 +84,7 @@ export default {
       const regMsg = await post(url, data)
       if (regMsg.state) {
         var storage = window.localStorage
-        const storageData = Object.assign({}, regMsg.cont, {'dataTime': new Date().getTime()})
+        const storageData = Object.assign({}, regMsg.cont, {'dataTime': new Date().getTime()}, {token: regMsg.token})
         storage.setItem('mydata', JSON.stringify(storageData))
         this.$message({
           message: '登陆成功',

@@ -3,6 +3,7 @@ var router = express.Router();
 var sha1 = require('sha1')
 var userModel = require('../lib/mysqlc')
 const init = require('../config')
+const jwt = require('jsonwebtoken')
 
 // 注册提交
 router.post('/register', function (req, res, next) {
@@ -45,10 +46,12 @@ router.post('/register', function (req, res, next) {
             .then(result2 => {
               if(result2.affectedRows !== 0) {
                 delete obj.password
+                const token = jwt.sign(obj, init.secret)
                 res.json({
                   state: 1,
                   msg: '',
-                  cont: obj
+                  cont: obj,
+                  token
                 })
                 return 
               }
@@ -107,10 +110,12 @@ router.post('/signin', function (req, res, next) {
             throw new Error('密码错误')
           }
           delete result[0].password
+          const token = jwt.sign({...result[0]}, init.secret)
           res.json({
             state: 1,
             msg: '',
-            cont: result[0]
+            cont: result[0],
+            token
           })
           return
         }).catch(err => {

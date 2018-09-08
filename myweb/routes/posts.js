@@ -1,11 +1,28 @@
 var express = require('express');
 var router = express.Router();
 var postsModel = require('../lib/mysqlc')
+const init = require('../config')
+const jwt = require('jsonwebtoken')
 
 router.post('/writeArticle', function (req, res, next) {
   const title = req.body.title
   const content = req.body.content
   const types = req.body.types
+  const token = req.headers.token
+  let tokenMsg = false
+  // 使用jwt检验token
+  jwt.verify(token, init.secret, (error, decoded) => {
+    if (error) {
+      res.json({
+        state: 0,
+        msg: error
+      })
+      return
+    }
+    //验证是否是第一权限
+    if (decoded.state === 1) tokenMsg = true
+  })
+
   let d = new Date()
   const moment = `${d.getFullYear()}-${(d.getMonth()+1)<10?'0'+(d.getMonth()+1):d.getMonth()+1}-${d.getDate()<10?'0'+d.getDate():d.getDate()} ${d.getHours()}:${(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())}:${(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds())}`
 
@@ -27,6 +44,8 @@ router.post('/writeArticle', function (req, res, next) {
       throw new Error('标题不能为空')
     } else if (!content) {
       throw new Error('内容不能为空')
+    } else if (!tokenMsg) {
+      throw new Error('权限不足')
     } else {
       const obj = {title: newTitle, content: newContent, types, moment}
       postsModel.writeArticle(obj)
@@ -138,20 +157,44 @@ router.get('/getListAll', function (req, res, next) {
 router.get('/getArticle', function (req, res, next) {
   const id = req.query.id
   const obj = {id}
-  postsModel.findArticleById(obj)
-    .then(result => {
-      res.json({
-        state: 1,
-        result: result[0]
-      })
-      return
-    }).catch(e => {
+  const token = req.headers.token
+  let tokenMsg = false
+  // 使用jwt检验token
+  jwt.verify(token, init.secret, (error, decoded) => {
+    if (error) {
       res.json({
         state: 0,
-        msg: e.message
+        msg: error
       })
       return
+    }
+    //验证是否是第一权限
+    if (decoded.state === 1) tokenMsg = true
+  })
+
+  // 校验参数
+  if (tokenMsg) {
+    postsModel.findArticleById(obj)
+      .then(result => {
+        res.json({
+          state: 1,
+          result: result[0]
+        })
+        return
+      }).catch(e => {
+        res.json({
+          state: 0,
+          msg: e.message
+        })
+        return
+      })
+  } else {
+    res.json({
+      state: 0,
+      msg: '权限不足'
     })
+    return
+  }
 })
 
 router.post('/editArticle', function (req, res, next) {
@@ -159,6 +202,20 @@ router.post('/editArticle', function (req, res, next) {
   const content = req.body.content
   const types = req.body.types
   const id = req.body.id
+  const token = req.headers.token
+  let tokenMsg = false
+  // 使用jwt检验token
+  jwt.verify(token, init.secret, (error, decoded) => {
+    if (error) {
+      res.json({
+        state: 0,
+        msg: error
+      })
+      return
+    }
+    //验证是否是第一权限
+    if (decoded.state === 1) tokenMsg = true
+  })
 
   // 对于特殊字符双引号进行转义(解决数据库不能存双引号的问题)
   let newContent = content.replace(/["]/g, (target) => {
@@ -178,6 +235,8 @@ router.post('/editArticle', function (req, res, next) {
         throw new Error('标题不能为空')
       } else if (!content) {
         throw new Error('内容不能为空')
+      } else if (!tokenMsg) {
+        throw new Error('权限不足')
       } else {
         postsModel.updateArticleById(obj)
           .then(result => {
@@ -209,22 +268,46 @@ router.post('/editArticle', function (req, res, next) {
 router.post('/deleteArticle', function (req, res, next) {
   const id = req.body.id
   const obj = {id}
-  postsModel.deleteArticleById(obj)
-    .then(result => {
-      if(result.affectedRows !== 0) { 
-        res.json({
-          state: 1,
-          cont: result
-        })
-        return
-      }
-    }).catch(e => {
+  const token = req.headers.token
+  let tokenMsg = false
+  // 使用jwt检验token
+  jwt.verify(token, init.secret, (error, decoded) => {
+    if (error) {
       res.json({
         state: 0,
-        msg: e.message
+        msg: error
       })
       return
+    }
+    //验证是否是第一权限
+    if (decoded.state === 1) tokenMsg = true
+  })
+
+  // 校验参数
+  if (tokenMsg) {
+    postsModel.deleteArticleById(obj)
+      .then(result => {
+        if(result.affectedRows !== 0) { 
+          res.json({
+            state: 1,
+            cont: result
+          })
+          return
+        }
+      }).catch(e => {
+        res.json({
+          state: 0,
+          msg: e.message
+        })
+        return
+      })
+  } else {
+    res.json({
+      state: 0,
+      msg: '权限不足'
     })
+    return
+  }
 })
 
 // 首页打开页面修改pv

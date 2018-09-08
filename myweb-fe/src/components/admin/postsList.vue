@@ -57,7 +57,6 @@
 </template>
 <script>
 import {get, post} from '@/assets/js/util'
-import {mapGetters} from 'vuex'
 export default {
   name: 'postsList',
   data () {
@@ -70,27 +69,20 @@ export default {
   },
   methods: {
     handleEdit (index, row) {
-      if (this.isState) {
-        this.$router.push({path: '/admin/editArticle', query: { id: row.id }})
-      } else {
-        this.$message.error('权限不足')
-      }
+      this.$router.push({path: '/admin/editArticle', query: { id: row.id }})
     },
     handleDelete (index, row) {
-      if (this.isState) {
-        this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.deleteArticle('/api/posts/deleteArticle', {id: row.id})
-        })
-      } else {
-        this.$message.error('权限不足')
-      }
+      this.$confirm('此操作将永久删除该文章, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteArticle('/api/posts/deleteArticle', {id: row.id})
+      })
     },
     async deleteArticle (url, data) {
-      const resMsg = await post(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const resMsg = await post(url, data, storageData.token)
       if (resMsg.state) {
         this.$message({
           type: 'success',
@@ -122,11 +114,6 @@ export default {
   },
   created () {
     this.getList()
-  },
-  computed: {
-    ...mapGetters([
-      'isState'
-    ])
   }
 }
 </script>

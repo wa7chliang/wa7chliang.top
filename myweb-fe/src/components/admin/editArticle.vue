@@ -57,7 +57,8 @@ export default {
       }
     },
     async getArticle (url, data) {
-      const res = await get(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const res = await get(url, data, storageData.token)
       if (res.state) {
         this.form = res.result
         this.form.types += ''
@@ -71,7 +72,8 @@ export default {
       this.submitEditArticle('/api/posts/editArticle', obj)
     },
     async submitEditArticle (url, data) {
-      const resMsg = await post(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const resMsg = await post(url, data, storageData.token)
       if (resMsg.state) {
         this.$message({
           message: '文章编辑成功',
