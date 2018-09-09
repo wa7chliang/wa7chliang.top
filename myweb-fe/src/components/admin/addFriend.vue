@@ -23,7 +23,6 @@
 </template>
 <script>
 import {post} from '@/assets/js/util'
-import {mapGetters} from 'vuex'
 export default {
   name: 'add-friend',
   data () {
@@ -37,15 +36,12 @@ export default {
   },
   methods: {
     onSubmit () {
-      if (this.isState) {
-        let obj = {...this.form}
-        this.addFriend('/api/friend/writeFriend', obj)
-      } else {
-        this.$message.error('权限不足')
-      }
+      let obj = {...this.form}
+      this.addFriend('/api/friend/writeFriend', obj)
     },
     async addFriend (url, data) {
-      const resMsg = await post(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const resMsg = await post(url, data, storageData.token)
       if (resMsg.state) {
         this.$message({
           message: '添加友链成功',
@@ -56,11 +52,6 @@ export default {
         this.$message.error(resMsg.msg)
       }
     }
-  },
-  computed: {
-    ...mapGetters([
-      'isState'
-    ])
   }
 }
 </script>

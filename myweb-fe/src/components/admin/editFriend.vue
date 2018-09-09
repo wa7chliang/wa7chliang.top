@@ -40,15 +40,12 @@ export default {
       this.submitEditFriend('/api/friend/editFriend', obj)
     },
     ifEdit () {
-      if (this.$route.query.id) {
-        // 执行得到修改的内容
-        this.getFriend('/api/friend/getFriendContent', {id: this.$route.query.id})
-      } else {
-        this.$router.push({path: '/admin'})
-      }
+      // 执行得到修改的内容
+      this.getFriend('/api/friend/getFriendContent', {id: this.$route.query.id})
     },
     async getFriend (url, data) {
-      const res = await get(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const res = await get(url, data, storageData.token)
       if (res.state) {
         this.form = res.cont
       } else {
@@ -56,7 +53,8 @@ export default {
       }
     },
     async submitEditFriend (url, data) {
-      const resMsg = await post(url, data)
+      const storageData = JSON.parse(window.localStorage.getItem('mydata'))
+      const resMsg = await post(url, data, storageData.token)
       if (resMsg.state) {
         this.$message({
           message: '友链编辑成功',

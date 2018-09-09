@@ -10,7 +10,6 @@
 <script>
 import adminHeader from '@/components/common/adminHeader'
 import adminAside from '@/components/common/adminAside'
-import {mapMutations} from 'vuex'
 export default {
   name: 'admin',
   data () {
@@ -41,13 +40,9 @@ export default {
           storage.setItem('mydata', JSON.stringify(storageData))
           this.mydata = storageData
           let state = storageData.state || 0
-          this.setIsstateState(state)
         }
       }
-    },
-    ...mapMutations({
-      setIsstateState: 'SET_ISSTATE_STATE'
-    })
+    }
   },
   created () {
     this.getStorage()

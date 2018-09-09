@@ -48,7 +48,6 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
 export default {
   name: 'videoArray',
   data () {
@@ -58,30 +57,17 @@ export default {
   },
   methods: {
     handleEdit (index, row) {
-      if (this.isState) {
-        this.$router.push({path: '/admin/editVideoArray', query: { id: row.id }})
-      } else {
-        this.$message.error('权限不足')
-      }
+      this.$router.push({path: '/admin/editVideoArray', query: { id: row.id }})
     },
     handleDelete (index, row) {
-      if (this.isState) {
-        this.$confirm('此操作将永久删除该动漫, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+      this.$confirm('此操作将永久删除该动漫, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
 
-        })
-      } else {
-        this.$message.error('权限不足')
-      }
+      })
     }
-  },
-  computed: {
-    ...mapGetters([
-      'isState'
-    ])
   }
 }
 </script>

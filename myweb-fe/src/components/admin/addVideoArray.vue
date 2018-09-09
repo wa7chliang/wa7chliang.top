@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex'
 export default {
   name: 'addVideoArray',
   data () {
@@ -40,17 +39,8 @@ export default {
   },
   methods: {
     onSubmit () {
-      if (this.isState) {
-        let obj = {...this.form}
-      } else {
-        this.$message.error('权限不足')
-      }
+      let obj = {...this.form}
     }
-  },
-  computed: {
-    ...mapGetters([
-      'isState'
-    ])
   }
 }
 </script>
