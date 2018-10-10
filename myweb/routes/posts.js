@@ -157,44 +157,37 @@ router.get('/getListAll', function (req, res, next) {
 router.get('/getArticle', function (req, res, next) {
   const id = req.query.id
   const obj = {id}
-  const token = req.headers.token
-  let tokenMsg = false
-  // 使用jwt检验token
-  jwt.verify(token, init.secret, (error, decoded) => {
-    if (error) {
+  // const token = req.headers.token
+  // let tokenMsg = false
+  // // 使用jwt检验token
+  // jwt.verify(token, init.secret, (error, decoded) => {
+  //   if (error) {
+  //     res.json({
+  //       state: 0,
+  //       msg: error
+  //     })
+  //     return
+  //   }
+  //   //验证是否是第一权限
+  //   if (decoded.state === 1) tokenMsg = true
+  // })
+
+  // // 校验参数
+  // if (tokenMsg) {
+  postsModel.findArticleById(obj)
+    .then(result => {
       res.json({
-        state: 0,
-        msg: error
+        state: 1,
+        result: result[0]
       })
       return
-    }
-    //验证是否是第一权限
-    if (decoded.state === 1) tokenMsg = true
-  })
-
-  // 校验参数
-  if (tokenMsg) {
-    postsModel.findArticleById(obj)
-      .then(result => {
-        res.json({
-          state: 1,
-          result: result[0]
-        })
-        return
-      }).catch(e => {
-        res.json({
-          state: 0,
-          msg: e.message
-        })
-        return
+    }).catch(e => {
+      res.json({
+        state: 0,
+        msg: e.message
       })
-  } else {
-    res.json({
-      state: 0,
-      msg: '权限不足'
+      return
     })
-    return
-  }
 })
 
 router.post('/editArticle', function (req, res, next) {
