@@ -22,6 +22,9 @@
             <el-menu-item index="/admin/writeArticle">写文章</el-menu-item>
           </el-menu-item-group>
           <el-menu-item-group>
+            <el-menu-item index="/admin/writeArticleByMackDown">用mackdown写文章</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
             <el-menu-item index="/admin/postsList">文章列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>

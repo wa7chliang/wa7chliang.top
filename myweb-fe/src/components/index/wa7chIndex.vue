@@ -44,6 +44,8 @@ export default {
     cutContent (content) {
       if (content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0) {
         return content.slice(0, content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>'))
+      } else if (content.indexOf('<!--more-->') > 0) {
+        return content.slice(0, content.indexOf('<!--more-->'))
       }
       return content
     },

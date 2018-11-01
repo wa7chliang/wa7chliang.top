@@ -75,6 +75,77 @@ router.post('/writeArticle', function (req, res, next) {
   }
 })
 
+// 这个是mackdown的接口
+router.post('/writeArticleByMackdown', function (req, res, next) {
+  const title = req.body.title
+  const content = req.body.content
+  const types = req.body.types
+  const token = req.headers.token
+  let tokenMsg = false
+  // 使用jwt检验token
+  jwt.verify(token, init.secret, (error, decoded) => {
+    if (error) {
+      res.json({
+        state: 0,
+        msg: error
+      })
+      return
+    }
+    //验证是否是第一权限
+    if (decoded.state === 1) tokenMsg = true
+  })
+
+  let d = new Date()
+  const moment = `${d.getFullYear()}-${(d.getMonth()+1)<10?'0'+(d.getMonth()+1):d.getMonth()+1}-${d.getDate()<10?'0'+d.getDate():d.getDate()} ${d.getHours()}:${(d.getMinutes()<10?'0'+d.getMinutes():d.getMinutes())}:${(d.getSeconds()<10?'0'+d.getSeconds():d.getSeconds())}`
+  
+  // 对于特殊字符双引号进行转义(解决数据库不能存双引号的问题)
+  let newContent = content.replace(/["]/g, (target) => {
+    return {
+        '"': '',
+    }[target]
+  })
+  let newTitle = title.replace(/["]/g, (target) => {
+    return {
+        '"': '',
+    }[target]
+  })
+  // 校验参数
+  try {
+    if (!title) {
+      throw new Error('标题不能为空')
+    } else if (!content) {
+      throw new Error('内容不能为空')
+    } else if (!tokenMsg) {
+      throw new Error('权限不足')
+    } else {
+      const obj = {title: newTitle, content: newContent, types, moment}
+      postsModel.writeArticle(obj)
+      .then(result => {
+        if(result.affectedRows !== 0) {
+          res.json({
+            state: 1,
+            msg: '文章写入成功',
+            cont: result
+          })
+          return
+        }
+      }).catch(err => {
+        res.json({
+          state: 0,
+          msg: err.message
+        })
+        return
+      })
+    }
+  } catch (e) {
+    res.json({
+      state: 0,
+      msg: e.message
+    })
+    return
+  }
+})
+
 router.get('/getList', function (req, res, next) {
   const page = req.query.page || 1
   const size = req.query.size || 10

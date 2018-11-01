@@ -34,6 +34,8 @@ export default {
     cutContent (content) {
       if (content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0) {
         return content.replace('<pre><code>&lt;!--more--&gt;</code></pre>', '')
+      } else if (content.indexOf('<!--more-->') > 0) {
+        return content.replace('<!--more-->', "")
       }
       return content
     },
