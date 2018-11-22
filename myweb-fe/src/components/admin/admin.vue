@@ -24,10 +24,14 @@ export default {
   },
   methods: {
     getStorage () {
+      var name = this.$route.name
       let storage = window.localStorage
       let storageData = JSON.parse(storage.getItem('mydata'))
       if (!storageData) {
         this.isLogin = true
+        if (name === 'login' || name === 'register') {
+          return
+        }
         this.$router.push({path: '/admin/login'})
       } else {
         this.isLogin = false

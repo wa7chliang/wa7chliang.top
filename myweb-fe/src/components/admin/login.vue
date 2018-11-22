@@ -14,7 +14,7 @@
         </el-form-item>
         <el-form-item class="dib" label="验证码" prop="code">
           <el-input v-model="form.code" auto-complete="off"></el-input>
-          <img src="/api/captcha" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
+          <img :src="'/api/captcha?code=' + Math.random()" onclick="javascript: this.src='/api/captcha?code='+ Math.random()">
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('form')">登陆</el-button>
