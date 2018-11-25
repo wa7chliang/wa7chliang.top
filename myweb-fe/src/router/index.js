@@ -85,10 +85,6 @@ export default new Router({
         path: 'editVideoArray',
         name: 'editVideoArray',
         component: (resolve) => require(['@/components/admin/editVideoArray'], resolve)
-      }, {
-        path: 'writeArticleByMackDown',
-        name: 'writeArticleByMackDown',
-        component: (resolve) => require(['@/components/admin/writeArticleByMackDown'], resolve)
       }]
     }, {
       path: '*',

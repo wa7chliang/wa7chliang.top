@@ -8,7 +8,7 @@
             <span class="moment">发表于:{{cutMoment(item.moment)}}</span>
             <span class="pv">浏览次数:{{item.pv}}</span>
           </div>
-          <div class="content-box" v-html="cutContent(item.content)"></div>
+          <div id="content" class="content-box" v-html="cutContent(item.content)"></div>
           <router-link class="more-a" :to="{path: '/article/'+item.id }">
             <el-button type="primary" size="small">阅读全文 »</el-button>
           </router-link>

@@ -6,7 +6,7 @@
         <span class="moment">发表于:{{cutMoment(articleObj.moment)}}</span>
         <span class="pv">浏览次数:{{articleObj.pv}}</span>
       </div>
-      <div class="content-box" v-html="cutContent(articleObj.content)"></div>
+      <div id="content" class="content-box" v-html="cutContent(articleObj.content)"></div>
       <router-link class="more-a" to="/">
         <el-button type="primary" size="small">返回首页 »</el-button>
       </router-link>
