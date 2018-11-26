@@ -5,8 +5,7 @@ myweb/node_modules/
 myweb-fe/node_modules/
 myweb-fe/dist
 myweb/config.js
-mywed/package-lock.json
-myweb-fe/package-lock.json
+package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

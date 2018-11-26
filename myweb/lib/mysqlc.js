@@ -1,15 +1,16 @@
 var conn = require('./conn')
 
-let query = ( sql ) => {
+let query = ( sql, options ) => {
   return new Promise(( resolve, reject ) => {
     conn.conn(function (connection) {
-      connection.query(sql, function (err, result) {
+      connection.query(sql, options || [], function (err, result) {
         if ( err ) {
           reject( err )
         } else {
           resolve( result )
         }
       })
+      connection.end()
     })
   })
 }
@@ -28,8 +29,9 @@ let writeDataByUser = ( obj ) => {
 
 // 将文章写入数据库
 let writeArticle = ( obj ) => {
-  let _sql = `INSERT INTO posts(title,content,moment,types) VALUES("${obj.title}","${obj.content}","${obj.moment}","${obj.types}");`
-  return query(_sql)
+  let _sql = `INSERT INTO posts(title,content,moment,types) VALUES(?, ?, ?, ?);`
+  let options = [obj.title, obj.content, obj.moment, obj.types]
+  return query(_sql, options)
 }
 
 // 分页查询文章名称
@@ -58,8 +60,9 @@ let findArticleById = ( obj ) => {
 
 // 根据id修改文章内容
 let updateArticleById = ( obj ) => {
-  let _sql = `UPDATE posts SET title="${obj.title}",content="${obj.content}",types="${obj.types}" WHERE id="${obj.id}";`
-  return query(_sql)
+  let _sql = `UPDATE posts SET title=?,content=?,types=? WHERE id=?;`
+  let options = [obj.title, obj.content, obj.types, obj.id]  
+  return query(_sql, options)
 }
 
 // 根据id增加pv
