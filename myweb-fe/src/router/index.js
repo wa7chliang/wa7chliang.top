@@ -11,6 +11,7 @@ export default new Router({
       component: (resolve) => require(['@/components/index/index'], resolve),
       children: [{
         path: '',
+        name: 'wa7chIndex',
         component: (resolve) => require(['@/components/index/wa7chIndex'], resolve)
       }, {
         path: 'article/:id',

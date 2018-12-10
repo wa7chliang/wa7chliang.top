@@ -19,6 +19,7 @@
       <el-pagination
         background
         layout="prev, pager, next"
+        :current-page="page"
         :page-size="5"
         @current-change="currentChange"
         :total="allCount">
@@ -58,8 +59,7 @@ export default {
     currentChange (val) {
       if (val !== this.page) {
         this.page = val
-        this.getList('/api/posts/getListAll', {page: this.page})
-        window.scrollTo(0, 0)
+        this.$router.push({name: 'wa7chIndex', query: {page: this.page}})
       }
     }
   },
@@ -69,7 +69,16 @@ export default {
     ])
   },
   created () {
+    this.$route.query.page?this.page = this.$route.query.page: this.page = 1
     this.getList('/api/posts/getListAll', {page: this.page})
+  },
+  watch: {
+    $route () {
+      if (!this.$route.query.page) {
+        this.page = 1
+      }
+      this.getList('/api/posts/getListAll', {page: this.page})
+    }
   }
 }
 </script>

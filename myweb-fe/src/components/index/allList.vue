@@ -23,6 +23,7 @@
         background
         layout="total, prev, pager, next"
         :page-size="10"
+        :current-page="page"
         @current-change="currentChange"
         :total="allCount">
       </el-pagination>
@@ -53,17 +54,26 @@ export default {
     currentChange (val) {
       if (val !== this.page) {
         this.page = val
-        this.getList('/api/posts/getList', {page: this.page})
+        this.$router.push({name: 'allList', query: {page: this.page}})
       }
     }
   },
   created () {
+    this.$route.query.page?this.page = this.$route.query.page: this.page = 1
     this.getList('/api/posts/getList', {page: this.page})
   },
   computed: {
     ...mapGetters([
       'allCount'
     ])
+  },
+  watch: {
+    $route () {
+      if (!this.$route.query.page) {
+        this.page = 1
+      }
+      this.getList('/api/posts/getList', {page: this.page})
+    }
   }
 }
 </script>

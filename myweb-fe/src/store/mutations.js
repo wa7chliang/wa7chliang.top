@@ -1,7 +1,7 @@
 import getters from './getters.js'
 
 var state = {
-  allCount: 0
+  allCount: null  // allCount为null 则分页器才有用 bug
 }
 
 const mutations = {
