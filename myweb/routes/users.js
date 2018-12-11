@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var sha1 = require('sha1')
-var userModel = require('../lib/mysqlc')
 const init = require('../config')
 const jwt = require('jsonwebtoken')
+const userModel = require('../model/users/index.model')
 
 // 注册提交
 router.post('/register', function (req, res, next) {
@@ -58,7 +58,7 @@ router.post('/register', function (req, res, next) {
             }).catch(err2 => {
               res.json({
                 state: 0,
-                msg: '添加失败'
+                msg: err2.message
               })
               return 
             })
@@ -110,7 +110,7 @@ router.post('/signin', function (req, res, next) {
             throw new Error('密码错误')
           }
           delete result[0].password
-          const token = jwt.sign({...result[0]}, init.secret)
+          const token = jwt.sign({...result[0].dataValues}, init.secret)
           res.json({
             state: 1,
             msg: '',
