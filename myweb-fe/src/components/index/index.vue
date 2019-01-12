@@ -75,7 +75,7 @@ export default {
 .article, .wa7chIndex {
   pre {
     padding: 1em;
-    background: #f6f6f6;
+    background: #fafafa;
     margin: 1.5em 0;
     border-radius: 4px;
   }

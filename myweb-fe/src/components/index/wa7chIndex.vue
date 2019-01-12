@@ -30,6 +30,15 @@
 <script>
 import {mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-light.css'
+//  使用代码高亮
+const highlightCode = () => {
+  let blocks = document.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block)
+  })
+}
 export default {
   name: 'wa7chIndex',
   data () {
@@ -54,6 +63,7 @@ export default {
       const res = await get(url, data)
       if (res.state) {
         this.list = res.list
+        hljs.initHighlightingOnLoad()
       }
     },
     currentChange (val) {
@@ -69,7 +79,7 @@ export default {
     ])
   },
   created () {
-    this.$route.query.page?this.page = this.$route.query.page: this.page = 1
+    this.$route.query.page ? this.page = this.$route.query.page : this.page = 1
     this.getList('/api/posts/getListAll', {page: this.page})
   },
   watch: {
@@ -79,6 +89,9 @@ export default {
       }
       this.getList('/api/posts/getListAll', {page: this.page})
     }
+  },
+  updated () {
+    highlightCode()
   }
 }
 </script>

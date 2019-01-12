@@ -15,6 +15,15 @@
 </template>
 <script>
 import {get, post} from '@/assets/js/util'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-light.css'
+//  使用代码高亮
+const highlightCode = () => {
+  let blocks = document.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block)
+  })
+}
 export default {
   name: 'v-article',
   data () {
@@ -35,7 +44,7 @@ export default {
       if (content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0) {
         return content.replace('<pre><code>&lt;!--more--&gt;</code></pre>', '')
       } else if (content.indexOf('<!--more-->') > 0) {
-        return content.replace('<!--more-->', "")
+        return content.replace('<!--more-->', '')
       }
       return content
     },
@@ -60,6 +69,9 @@ export default {
   },
   created () {
     this.getContent(this.$route.params.id)
+  },
+  updated () {
+    highlightCode()
   }
 }
 </script>
