@@ -1,0 +1,55 @@
+.index {
+  width: 100%;
+  height: 100vh;
+  background: rgba(62, 65, 82, 1);
+  .img-box {
+    width: 88px;
+    height: 88px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 80%;
+    position: relative;
+    .img-border {
+      width: 100%;
+      height: 100%;
+      border: 5px solid #DF9C81;
+      border-radius: 80%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation: Animate 6s linear infinite;
+      .img-line {
+        width: 4px;
+        height: 7px;
+        background: #DF9C81;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -2px;
+      }
+    }
+    .img {
+      width: 70px;
+      height: 70px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 1px solid #DF9C81;
+      border-radius: 80%;
+      overflow: hidden;
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+@keyframes Animate {
+  0% {transform:rotate(0deg)}
+  100% {transform:rotate(360deg)}
+}
