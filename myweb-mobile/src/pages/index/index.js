@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './index.scss'
 
 class Index extends Component {
@@ -14,7 +15,11 @@ class Index extends Component {
             </div>
           </div>
           <ul className='nav-list'>
-            <li>归档</li>
+            <li>
+              <Link to='/filed'>
+                归档
+              </Link>  
+            </li>
             <li>友链</li>
             <li>抓住我</li>
           </ul>
