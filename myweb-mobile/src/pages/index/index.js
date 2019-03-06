@@ -21,7 +21,11 @@ class Index extends Component {
               </Link>  
             </li>
             <li>友链</li>
-            <li>抓住我</li>
+            <li>
+            <Link to='/aboutMe'>
+              抓住我
+            </Link>
+            </li>
           </ul>
           <div className='my-link'>
             <div className='items'>
