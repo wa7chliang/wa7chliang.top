@@ -25,7 +25,9 @@ class Header extends Component {
           <div className="item">
             <Link to='/filed'>归档</Link>
           </div>
-          <div className="item">友链</div>
+          <div className="item">
+            <Link to='/friend'>友链</Link>
+          </div>
           <div className="item">
             <Link to='/aboutMe'>抓住我</Link>
           </div>
