@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './style.scss'
 import Header from '../../common/header'
 import {connect} from 'react-redux'
+import * as actionCreators from './store/actionCreators'
 
 class Friend extends Component {
   render() {
@@ -15,30 +16,27 @@ class Friend extends Component {
         <ul className='friend-list'>
           {
             friendList.map((item, index) => {
-              if(item.images_link === 'none') {
-                return (
-                  <li key={index}>
-                    <a href={item.address_link}>
-                      <div className='font-box'>{item.friend_name.slice(0, 2)}</div>
-                      <p>{item.friend_name}</p>
-                    </a>
-                  </li>
-                )
-              } else {
-                return (
-                  <li key={index}>
-                    <a href={item.address_link}>
-                      <img src={item.images_link} alt=""/>
-                      <p>{item.friend_name}</p>
-                    </a>
-                  </li>
-                )
-              }
+              return (
+                <li key={index}>
+                  <a href={item.address_link.indexOf('http') >= 0? item.address_link: `http://${item.address_link}`}>
+                    {
+                      item.images_link === 'none'? 
+                        <div className='font-box'>{item.friend_name.slice(0, 2)}</div> :
+                        <img src={item.images_link} alt=""/>
+                    }
+                    <p>{item.friend_name}</p>
+                  </a>
+                </li>
+              )
             })
           }
         </ul>
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.props.getFriendList()
   }
 }
 
@@ -48,4 +46,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(Friend)
+const mapDispathToProps = (dispatch) => ({
+  getFriendList() {
+    const action = actionCreators.getFriendList()
+    dispatch(action)
+  }
+})
+
+export default connect(mapStateToProps, mapDispathToProps)(Friend)

@@ -1,13 +1,15 @@
+import * as actionTypes from './actionTypes'
+
 const defaultState = {
-  friendList: [{
-    images_link: 'https://avatars3.githubusercontent.com/u/26890547?s=460&v=4',
-    address_link: 'http://www.wa7chliang.top',
-    friend_name: 'wa7chliang'
-  }]
+  friendList: []
 }
 
 export default (state = defaultState, action) => {
   switch(action.type) {
+    case actionTypes.SETFRIENDLIST:
+      let newState = {...state}
+      newState.friendList = action.data
+      return newState
     default:
       return state
   }

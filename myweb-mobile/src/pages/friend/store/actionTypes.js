@@ -1,0 +1,1 @@
+export const SETFRIENDLIST = 'set_friendList'
