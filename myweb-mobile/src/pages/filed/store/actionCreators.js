@@ -13,6 +13,11 @@ const changeCount = (count) => ({
   count
 })
 
+export const setLoading = (flag) => ({
+  type: actionTypes.SETLOADING,
+  flag
+})
+
 export function getCount() {
   return async (dispatch) => {
     const res = await get(api.getCount)
