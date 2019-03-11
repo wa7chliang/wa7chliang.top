@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style.scss';
 import Header from '../../common/header'
+import Footer from '../../common/footer'
 import {get, post} from '../../assets/js/util'
 import {api} from '../../assets/js/api'
 
@@ -13,13 +14,14 @@ class Detail extends Component {
       id: '',
       moment: '',
       pv: '',
+      fixedb: true
     }
     this.getArticle = this.getArticle.bind(this)
     this.addPvApi = this.addPvApi.bind(this)
   }
   render() {
     return (
-      <div className='detail'>
+      <div className='detail' ref='detail'>
         <Header />
         <div className="detail-box">
           <div className="title">{this.state.title}</div>
@@ -28,6 +30,10 @@ class Detail extends Component {
             <span className='pv'>浏览次数:{this.state.pv}</span>
           </div>
           <div className='content' dangerouslySetInnerHTML={{__html: this.state.content}}></div>
+        </div>
+        <div className='back' onClick={() => {this.props.history.goBack()}}>返回</div>
+        <div className={this.state.fixedb? 'fixedb': ''}>
+          <Footer />
         </div>
       </div>
     )
@@ -46,7 +52,8 @@ class Detail extends Component {
     const res = await get(api.getArticle, {id: data})
     if (res.state) {
       const {content, title, id, moment, pv} = res.result
-      this.setState({content, title, id, moment, pv})
+      this.setState({content, title, id, moment, pv, 
+        fixedb: window.innerHeight > this.refs.detail.offsetHeight + 130})  //  判断是否让footer position: fixed
     }
   }
 

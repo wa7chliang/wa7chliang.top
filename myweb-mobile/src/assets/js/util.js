@@ -34,3 +34,8 @@ function request (url, method, data, token) {
     })
   })
 }
+
+export const ua = {
+  isIOS: navigator.userAgent.toLowerCase().match(/iphone|ipad|ipod/i),
+  isAndroid: navigator.userAgent.indexOf('Android') > -1 || navigator.userAgent.indexOf('Linux') > -1
+}

@@ -4,6 +4,7 @@ dist/
 myweb/node_modules/
 myweb-fe/node_modules/
 myweb-mobile/node_modules/
+myweb-mobile/build/
 myweb-fe/dist
 myweb/config.js
 package-lock.json
