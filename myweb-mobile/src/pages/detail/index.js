@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './style.scss';
 import Header from '../../common/header'
 import Footer from '../../common/footer'
-import {get, post} from '../../assets/js/util'
+import {get, post, highlightCode} from '../../assets/js/util'
 import {api} from '../../assets/js/api'
 
 class Detail extends Component {
@@ -52,8 +52,9 @@ class Detail extends Component {
     const res = await get(api.getArticle, {id: data})
     if (res.state) {
       const {content, title, id, moment, pv} = res.result
-      this.setState({content, title, id, moment, pv, 
-        fixedb: window.innerHeight > this.refs.detail.offsetHeight + 130})  //  判断是否让footer position: fixed
+      this.setState({content, title, id, moment, pv, }, () => {
+        this.setState({fixedb: window.innerHeight > this.refs.detail.offsetHeight + 130})
+      })  //  判断是否让footer position: fixed
     }
   }
 
@@ -64,6 +65,10 @@ class Detail extends Component {
         pv: Number(this.state.pv)+1
       })
     }
+  }
+
+  componentDidUpdate() {
+    highlightCode()
   }
 }
 

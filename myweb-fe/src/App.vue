@@ -5,8 +5,14 @@
 </template>
 
 <script>
+import {ua} from '@/assets/js/util'
 export default {
-  name: 'App'
+  name: 'App',
+  created () {
+    if (ua.isIOS || ua.isAndroid) {
+      window.location.replace('http://wa7chliang.top/mobile')
+    }
+  }
 }
 </script>
 

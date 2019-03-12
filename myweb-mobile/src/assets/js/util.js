@@ -1,4 +1,14 @@
 import axios from 'axios'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-light.css'
+
+export const highlightCode = () => {
+  let blocks = document.querySelectorAll('pre code')
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block)
+  })
+}
+
 
 export function get (url, data, token) {
   return request(url, 'get', data, token)

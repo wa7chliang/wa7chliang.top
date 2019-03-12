@@ -6,6 +6,7 @@ import { Seize } from '../../common/seize'
 import {connect} from 'react-redux'
 import * as actionCreators from './store/actionCreators'
 import {Link} from 'react-router-dom';
+import {highlightCode} from '../../assets/js/util'
 
 class Filed extends Component {
   constructor(props) {
@@ -75,6 +76,10 @@ class Filed extends Component {
     this.setState({
       list: this.props.list
     })
+  }
+
+  componentDidUpdate() {
+    highlightCode()
   }
 }
 
