@@ -51,7 +51,11 @@ class Detail extends Component {
   async getArticle(data) {
     const res = await get(api.getArticle, {id: data})
     if (res.state) {
-      const {content, title, id, moment, pv} = res.result
+      const { title, id, moment, pv} = res.result
+      let content
+      res.result.content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0? 
+      content = res.result.content.replace('<pre><code>&lt;!--more--&gt;</code></pre>', ''):
+      content = res.result.content
       this.setState({content, title, id, moment, pv, }, () => {
         this.setState({fixedb: window.innerHeight > this.refs.detail.offsetHeight + 130})
       })  //  判断是否让footer position: fixed
