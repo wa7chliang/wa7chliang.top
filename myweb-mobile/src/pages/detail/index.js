@@ -42,9 +42,6 @@ class Detail extends Component {
   async componentDidMount() {
     if (this.props.match.params.id) {
       this.getArticle(this.props.match.params.id)
-      setTimeout(() => {  //  逻辑写不好需要用定时器得到pv值
-        this.addPvApi({id: this.props.match.params.id, pv: Number(this.state.pv)})
-      }, 0)
     }
   }
 
@@ -56,8 +53,9 @@ class Detail extends Component {
       res.result.content.indexOf('<pre><code>&lt;!--more--&gt;</code></pre>') > 0? 
       content = res.result.content.replace('<pre><code>&lt;!--more--&gt;</code></pre>', ''):
       content = res.result.content
-      this.setState({content, title, id, moment, pv, }, () => {
+      this.setState({content, title, id, moment, pv}, () => {
         this.setState({fixedb: window.innerHeight > this.refs.detail.offsetHeight + 130})
+        this.addPvApi({id: this.props.match.params.id, pv: Number(this.state.pv)})
       })  //  判断是否让footer position: fixed
     }
   }
