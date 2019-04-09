@@ -23,6 +23,7 @@
 </template>
 <script>
 import {get} from '@/assets/js/util'
+import {api} from '@/assets/js/api'
 export default {
   name: 'friend',
   data () {
@@ -45,8 +46,8 @@ export default {
       }
     }
   },
-  created () {
-    this.getList('/api/friend/getFriendList')
+  mounted () {
+    this.getList(api.getFriendList)
   }
 }
 </script>

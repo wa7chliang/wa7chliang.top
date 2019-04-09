@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 var Encrypt = require('../common/js/crypto')
-var qs = require('qs')
 
 function createWebAPIRequest(url, method, data, callback) {
   var cryptoreq = Encrypt(data)
@@ -54,6 +53,23 @@ router.get('/url', function (req, res, next) {
       return;
     }
   )
+})
+
+// 获取音乐歌单的方法
+router.get('/playlist/detail', function (req, res, next) {
+  var id = req.query.id
+  var data = {
+    "id": id,
+    "offset": 0,
+    "total": true,
+    "limit": 1000,
+    "n": 1000,
+    "csrf_token": ""
+  }
+  createWebAPIRequest('https://music.163.com/weapi/v3/playlist/detail', 'POST', data, function (r) {
+    res.json(r)
+    return;
+  })
 })
 
 module.exports = router

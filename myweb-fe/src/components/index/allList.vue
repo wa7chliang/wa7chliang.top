@@ -33,6 +33,7 @@
 <script>
 import {mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
+import {api} from '@/assets/js/api'
 export default {
   name: 'all-list',
   data () {
@@ -58,9 +59,9 @@ export default {
       }
     }
   },
-  created () {
-    this.$route.query.page?this.page = this.$route.query.page: this.page = 1
-    this.getList('/api/posts/getList', {page: this.page})
+  mounted () {
+    this.$route.query.page ? this.page = this.$route.query.page : this.page = 1
+    this.getList(api.getList, {page: this.page})
   },
   computed: {
     ...mapGetters([
@@ -72,7 +73,7 @@ export default {
       if (!this.$route.query.page) {
         this.page = 1
       }
-      this.getList('/api/posts/getList', {page: this.page})
+      this.getList(api.getList, {page: this.page})
     }
   }
 }

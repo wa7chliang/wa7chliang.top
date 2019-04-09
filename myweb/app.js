@@ -16,6 +16,13 @@ var music = require('./routes/music')
 var compression = require('compression')  //使用gzip
 var app = express();
 
+//  测试用的cors跨域
+var allowCrossDomain = function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');//自定义中间件，设置跨域需要的响应头。
+  next();
+ }
+app.use(allowCrossDomain)
+
 app.use(compression({filter: shouldCompress}))
 function shouldCompress (req, res) {
   if (req.headers['x-no-compression']) {

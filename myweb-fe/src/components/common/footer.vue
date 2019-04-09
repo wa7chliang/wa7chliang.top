@@ -2,7 +2,7 @@
   <div class="vFooter">
     <div class="box">
       <p>本博客已经运行{{day}}天</p>
-      <p>@2018<span>粤ICP备18069281号</span></p>
+      <p>@2018-2019<span>粤ICP备18069281号</span></p>
     </div>
   </div>
 </template>

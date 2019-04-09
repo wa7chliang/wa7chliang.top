@@ -18,6 +18,7 @@ import vheader from '@/components/common/header'
 import vfooter from '@/components/common/footer'
 import {mapMutations, mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
+import {api} from '@/assets/js/api'
 export default {
   name: 'index',
   methods: {
@@ -41,8 +42,8 @@ export default {
     indexLeft,
     vfooter
   },
-  created () {
-    this.getCount('/api/posts/getCount')
+  mounted () {
+    this.getCount(api.getCount)
   }
 }
 </script>

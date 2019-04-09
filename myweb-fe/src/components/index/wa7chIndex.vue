@@ -32,6 +32,7 @@ import {mapGetters} from 'vuex'
 import {get} from '@/assets/js/util'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
+import {api} from '@/assets/js/api'
 //  使用代码高亮
 const highlightCode = () => {
   let blocks = document.querySelectorAll('pre code')
@@ -78,16 +79,16 @@ export default {
       'allCount'
     ])
   },
-  created () {
+  mounted () {
     this.$route.query.page ? this.page = this.$route.query.page : this.page = 1
-    this.getList('/api/posts/getListAll', {page: this.page})
+    this.getList(api.getListAll, {page: this.page})
   },
   watch: {
     $route () {
       if (!this.$route.query.page) {
         this.page = 1
       }
-      this.getList('/api/posts/getListAll', {page: this.page})
+      this.getList(api.getListAll, {page: this.page})
     }
   },
   updated () {

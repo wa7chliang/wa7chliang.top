@@ -17,6 +17,7 @@
 import {get, post} from '@/assets/js/util'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-light.css'
+import {api} from '@/assets/js/api'
 //  使用代码高亮
 const highlightCode = () => {
   let blocks = document.querySelectorAll('pre code')
@@ -50,14 +51,14 @@ export default {
     },
     getContent (id) {
       if (id) {
-        this.getContentApi('/api/posts/getArticle', {id})
+        this.getContentApi(api.getArticle, {id})
       }
     },
     async getContentApi (url, data) {
       const res = await get(url, data)
       if (res.state) {
         this.articleObj = res.result
-        this.addPvApi('/api/posts/addPv', {id: this.$route.params.id, pv: this.articleObj.pv})
+        this.addPvApi(api.addPv, {id: this.$route.params.id, pv: this.articleObj.pv})
       }
     },
     async addPvApi (url, data) {
@@ -67,7 +68,7 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     this.getContent(this.$route.params.id)
   },
   updated () {
